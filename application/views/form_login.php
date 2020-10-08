@@ -126,7 +126,7 @@ body{
 
 <footer class="footer">
       <div class="container">
-        <p class="text-muted">Copyright TamoraStore.com</p>
+        <p class="text-muted">Copyright 2020</p>
       </div>
 </footer>
 
