@@ -11,8 +11,8 @@ class M_login extends CI_Model {
 
 	public function cek_user($user,$pass) {
 		
-		//$query = $this->db->query("SELECT * FROM tbl_admin  WHERE (user_admin='$user' AND pass_admin='$pass') OR (email_admin='$user' AND pass_admin='$pass')");
-
+		$query = $this->db->query("SELECT * FROM tbl_admin  WHERE (user_admin='$user' AND pass_admin='$pass') OR (email_admin='$user' AND pass_admin='$pass')");
+		/*
 		$query = $this->db->query("
 					SELECT * FROM 
 						(
@@ -44,6 +44,7 @@ class M_login extends CI_Model {
 					WHERE (user_admin='$user' AND pass_admin='$pass') OR (email_admin='$user' AND pass_admin='$pass')
 
 			");
+			*/
 
 		return $query;
 	}
