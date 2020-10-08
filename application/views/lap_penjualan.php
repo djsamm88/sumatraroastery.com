@@ -30,10 +30,10 @@
           <div class="alert alert-info">
           <form id="go_trx_jurnal">
               <div class="col-sm-5">
-                  <input type="text" class="form-control datepicker" name="mulai" id="mulai"  value="<?php echo $mulai ?>" >
+                  <input type="text" class="form-control datepicker" name="tgl_awal" id="tgl_awal"  value="<?php echo $tgl_awal ?>" >
               </div>
               <div class="col-sm-5">
-                <input type="text" class="form-control datepicker" name="selesai" id="selesai"  value="<?php echo $selesai ?>">
+                <input type="text" class="form-control datepicker" name="tgl_akhir" id="tgl_akhir"  value="<?php echo $tgl_akhir ?>">
               </div>
               <div class="col-sm-2">
                 <input type="submit" class="btn btn-primary btn-block" value="Go">
@@ -50,44 +50,33 @@
               <th>No</th>                    
               <th>Kasir</th>                     
               <th>Tanggal</th>                                               
-              <th>Kode Trx.</th>                     
-              <th>Kepada</th>                     
+              <th>Kode Trx.</th>                                                                             
               <th>Sub Total</th>                     
-              <th>Diskon</th>                     
-              <th>Ekspedisi</th>                     
-              <th>Transport Ke Ekspedisi</th>                     
-              <th>Saldo</th>                     
-              <th>Total</th>                     
               <th>Struk</th>                     
+              <th>Bukti Bayar</th>                     
               
               
         </tr>
       </thead>
       <tbody>
         <?php
-        $total_all=0;         
+        $total=0;         
         $no = 0;
         foreach($all as $x)
         {
-          $total = $x->total-$x->saldo-$x->diskon+($x->harga_ekspedisi+$x->transport_ke_ekspedisi);
-          $total_all+=$total;
+          $total += $x->total;
           $no++;
             
             echo (" 
               
               <tr>
                 <td>$no</td>                
-                <td>".($x->nama_admin)." <br>".($x->email_admin)."</td>
-                <td>".($x->tgl_transaksi)."</td>
-                <td>$x->grup_penjualan</td>                
-                <td>$x->nama_pembeli -[ $x->id_pelanggan ]</td>                
-                <td align=right>".rupiah($x->total)."</td>                
-                <td align=right>".rupiah($x->diskon)."</td>                
-                <td align=right>".rupiah($x->harga_ekspedisi)."</td>                
-                <td align=right>".rupiah($x->transport_ke_ekspedisi)."</td>                
-                <td align=right>".rupiah($x->saldo)."</td>                
-                <td align=right>".rupiah($total)."</td>                
-                <td><a href='".base_url()."index.php/barang/struk_penjualan/".$x->grup_penjualan."' target='blank'>Print</a></td>                                
+                <td>".($x->nama_admin)." </td>
+                <td>".($x->tgl_trx)."</td>
+                <td>$x->group_trx</td>                                
+                <td align=right>".rupiah($x->total)."</td>                                
+                <td><a href='".base_url()."index.php/meja/struk_penjualan/".$x->group_trx."' target='blank'>Print</a></td>  
+                <td><a href='".base_url()."uploads/".$x->url_bukti."' target='blank'>Bukti</a></td>                                
               </tr>
           ");
           
@@ -98,8 +87,8 @@
       </tbody>
        <tfoot>
              <tr>
-                <th colspan='10' style='text-align:right'><b>Total</b></th>
-                <th style='text-align:right'><b>Rp.<?php echo rupiah($total_all)?></b></th>
+                <th colspan='4' style='text-align:right'><b>Total</b></th>
+                <th style='text-align:right'><b>Rp.<?php echo rupiah($total)?></b></th>
              </tr>
            </tfoot>
   </table>
@@ -134,23 +123,24 @@ $('.datepicker').datepicker({
 
 
 $("#go_trx_jurnal").on("submit",function(){
-    var mulai   = $("#mulai").val();
-    var selesai  = $("#selesai").val();
-    if( (new Date(mulai).getTime() > new Date(selesai).getTime()))
+    var tgl_awal   = $("#tgl_awal").val();
+    var tgl_akhir  = $("#tgl_akhir").val();
+    if( (new Date(tgl_awal).getTime() > new Date(tgl_akhir).getTime()))
     {
       alert("Perhatikan pengisian tanggal. Ada yang salah.");
       return false;
     }
 
-    eksekusi_controller('<?php echo base_url()?>index.php/barang/lap_penjualan/?mulai='+mulai+'&selesai='+selesai,'Laporan Penjualan');
+    eksekusi_controller('<?php echo base_url()?>index.php/meja/penjualan/?tgl_awal='+tgl_awal+'&tgl_akhir='+tgl_akhir,'Laporan Penjualan');
   return false;
 })
 
 
 
 $("#download_pdf").on("click",function(){
+  
   var ser = $("#go_trx_jurnal").serialize();
-  var url="<?php echo base_url()?>index.php/barang/lap_penjualan_excel/?"+ser;
+  var url="<?php echo base_url()?>index.php/meja/penjualan_xl/?"+ser;
   window.open(url);
 
   return false;

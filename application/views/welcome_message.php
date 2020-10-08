@@ -90,28 +90,7 @@ desired effect
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
-          <?php 
-            if($this->session->userdata('level') ==1 || $this->session->userdata('level') ==3)
-            {?>
-          <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-danger t4_notif_chat" ></span>
-            </a>
-
-            
-            <ul class="dropdown-menu">
-              <li class="header">You have <span class="t4_notif_chat"></span> messages</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                    <div id="t4_data_count"></div>
-              </li>              
-            </ul>
-          
-          </li>
-          <?php }?>
-
+        
 
            <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -336,10 +315,6 @@ desired effect
 
 <script type="text/javascript" src="<?php echo base_url()?>assets/toastr/toastr.min.js"></script>
 
-<script src="https://cdn.firebase.com/js/client/2.2.3/firebase.js"></script>
-<script type="text/javascript">
-  var dbRef = new Firebase("https://tamorastore-com.firebaseio.com/");
-</script>
 
 <script type="text/javascript">
   // To make Pace works on Ajax calls
@@ -348,24 +323,6 @@ desired effect
 
   })
   
-/*** panggil chat member ****/
-$(document).ready(function(){
-  $.get("<?php echo base_url()?>index.php/chat/chat_member",function(e){
-    $("#t4_chat_member").html(e);
-  })
-})
-/*** panggil chat member ****/
-
-
-
-/*** panggil chat kontak ****/
-$(document).ready(function(){
-  $.get("<?php echo base_url()?>index.php/chat/chat_kontak_all",function(e){
-    $("#t4_chat_kontak_all").html(e);
-  })
-})
-/*** panggil chat kontak ****/
-
   
   $(document).ready(function(){
     $("#tbl_datanya_barang").dataTable();
@@ -430,58 +387,7 @@ function notifyMe(notifnya) {
   // want to be respectful there is no need to bother them any more.
 }
 
-<?php 
-if($this->session->userdata('level')==1 || $this->session->userdata('level')==3){
-?>
-/******* chat *********/
-var chatsRef = dbRef.child('chat');
-var newItems = false;
-chatsRef.on("child_added", function(snap){
-  if(snap.val().kpd_id=='kasir' && snap.val().baca=="belum")
-  {
-    //*********************notification********************************************//
-    new Audio("<?php echo base_url()?>assets_chat/notif.mp3").play();
-    //doNotification (snap.val().dari_nama,snap.val().isi,snap.val().tgl);
-    notifyMe(snap.val().dari_nama,snap.val().isi);
-    document.title = snap.val().dari_nama,snap.val().isi;
-    //*********************notification********************************************//      
-    data_count_kasir()
-  }
-  if (!newItems) return;    
-});
-/******** chat **********/
-<?php } ?>
-function data_count_kasir()
-{
-  $.get("<?php echo base_url()?>index.php/chat/data_count_kasir",function(e){
-    $("#t4_data_count").html(e);
-    data_notif_kasir();
-  })
-}
-data_count_kasir();
-data_notif_kasir();
-function data_notif_kasir()
-{  
-  $.get("<?php echo base_url()?>index.php/chat/data_count_kasir_notif",function(e){
-    $(".t4_notif_chat").html(e);
-  })
-}
 
-function notif_member()
-{
-  $.get("<?php echo base_url()?>index.php/barang/notif",function(e){
-    
-
-    $(".badge_pesanan_ku").html("");
-    if(e.jum_pesanan_ku !=0)
-    {
-      $(".badge_pesanan_ku").html(e.jum_pesanan_ku);
-    }
-
-
-    
-  })
-}
 
 
   function notif()
@@ -506,19 +412,6 @@ function notif_member()
       if(all_notif_barang!="0" || all_notif_barang!="")
       {
         $(".badge_barang").html(all_notif_barang);  
-      }
-
-      
-      $(".badge_gudang").html("");
-      if(e.semu_stok_gudang != "" || e.semu_stok_gudang!="")
-      {
-        $(".badge_gudang").html(e.semu_stok_gudang);
-        //toastr.warning(e.semu_stok_gudang);
-        toastr["warning"]("Periksa stok barang di gudang!!!", "Gudang",{
-            onclick: function() {
-                  eksekusi_controller('<?php echo base_url()?>index.php/barang/stok_gudang/1','Stok Gudang');
-              }
-            });
       }
 
 

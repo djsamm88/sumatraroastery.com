@@ -16,7 +16,7 @@
       
     
         <?php 
-        
+        /*
         if($this->session->userdata('level')=='1' || $this->session->userdata('level')=='3')
         {
             ?>
@@ -28,6 +28,7 @@
             <?php 
 
         }        
+        */
 
 
         if($this->session->userdata('level')=='1')

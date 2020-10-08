@@ -20,7 +20,6 @@
 
 
 
-
         
         <li class="treeview">
           
@@ -61,7 +60,7 @@
 
         <li class="treeview">
           
-          <a href="#"><i class="fa fa-retweet"></i> <span>Pengeluaran Bulanan</span>
+          <a href="#"><i class="fa fa-retweet"></i> <span>Pengeluaran</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -99,7 +98,7 @@
 
         <li class="treeview">
           
-          <a href="#"><i class="fa fa-database"></i> <span>Master Barang <span class="label label-danger pull-right badge_barang"></span></span>
+          <a href="#"><i class="fa fa-database"></i> <span>Master <span class="label label-danger pull-right badge_barang"></span></span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -109,6 +108,12 @@
              <li>
               <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/data','Master Barang');return false;">
                 <i class="fa fa-link"></i> <span>Data Barang</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/data','Master Meja');return false;">
+                <i class="fa fa-link"></i> <span>Data Meja</span>
               </a>
             </li>
 
@@ -127,46 +132,16 @@
             </li>
 
 
-             <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/lap_penjualan','Transaksi Penjualan');return false;">
-                <i class="fa fa-link"></i> <span>Lap.Penjualan</span>
-              </a>
-            </li>
+             
+            
 
 
-
-           <li>
-            <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/lap_penjualan/?mulai=<?php echo date( 'Y-m-d', strtotime(' -1 day' ))?>&selesai=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Transaksi Penjualan');return false;">
-              <i class="fa fa-link"></i> <span>Lap.Penjualan</span>
-            </a>
-          </li>
-
-
-           <li>
-            <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/lap_penjualan_hapus/?mulai=<?php echo date( 'Y-m-d', strtotime(' -1 day' ))?>&selesai=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Transaksi Penjualan');return false;">
-              <i class="fa fa-link"></i> <span>Hapus Trx</span>
-            </a>
-          </li>
-
-
-             <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/lap_pending','Transaksi Pending');return false;">
-                <i class="fa fa-link"></i> <span>Pending  <span class="label label-danger pull-right badge_pending"></span></span>
-              </a>
-            </li>
-
-
-            <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/return_barang','Return Barang');return false;">
-                <i class="fa fa-link"></i> <span>Return Barang</span>
-              </a>
-            </li>
 
             
           </ul>
         </li>
 
-
+        <!--
 
          <li>
           <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/pesanan_member','Pesanan Member');return false;">
@@ -222,6 +197,7 @@
             
           </ul>
         </li>
+        -->
 
 
 
@@ -235,11 +211,21 @@
           </a>
 
           <ul class="treeview-menu">
+
              <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/gudang/data','Master Gudang');return false;">
-                <i class="fa fa-link"></i> <span>Master</span>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/jenis_kopi/data','Jenis Kopi');return false;">
+                <i class="fa fa-link"></i> <span>Jenis Kopi</span>
               </a>
             </li>
+
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/gudang/data','Master Gudang');return false;">
+                <i class="fa fa-link"></i> <span>Nama Gudang</span>
+              </a>
+            </li>
+
+
+            
             
             <li>
               <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/stok_gudang/1','Stok Gudang');return false;">
@@ -305,12 +291,13 @@
             </li>
 
 
-
+            <!--
              <li>
               <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan/laporan_laba/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Laba Rugi');return false;">
                 <i class="fa fa-link"></i> <span>Laba Rugi</span>
               </a>
             </li>
+            -->
 
 
 
@@ -327,10 +314,17 @@
 
 
         <li>
-          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/form_penjualan',' Kasir');return false;">
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/form_penjualan',' Kasir');return false;">
             <i class="fa fa-shopping-cart"></i> <span>Kasir</span>
           </a>
         </li>
+
+        
+           <li>
+            <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/penjualan/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+2 days'));?>','Laporan Jurnal');return false;">
+              <i class="fa fa-link"></i> <span>Penjualan</span>
+            </a>
+          </li>
 
 
         

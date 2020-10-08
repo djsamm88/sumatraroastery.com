@@ -57,8 +57,16 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 		return $q->result();
 	}
 
-	public function m_data()
+	public function m_data($kategori=null)	
 	{
+
+		if($kategori==null)
+		{
+			$where="";
+		}else{
+			$where=" WHERE kategori='$kategori'";
+		}
+
 		$q = $this->db->query("SELECT a.*,IFNULL(b.qty,0) AS qty,IFNULL(c.qty,0) AS masuk  
 								FROM tbl_barang a
 								LEFT JOIN(
@@ -78,6 +86,7 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 									SELECT id_barang,SUM(qty) AS qty FROM `tbl_barang_masuk_tanpa_harga` WHERE status='belum' GROUP BY id_barang
 								)c
 								ON a.id=c.id_barang
+								$where
 								ORDER BY b.qty DESC
 					");
 		return $q->result();

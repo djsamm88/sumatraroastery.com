@@ -19,7 +19,7 @@ class Welcome extends CI_Controller {
 		$this->load->model('m_laporan_keuangan');
 		$this->load->model('m_pelanggan');
 		$this->load->model('m_barang');
-		$this->load->model('m_chat');
+		
 
 
 		
@@ -31,7 +31,7 @@ class Welcome extends CI_Controller {
 		$data['kas'] = $this->m_laporan_keuangan->m_sisa_kas();
 		$data['m_chart'] = $this->m_laporan_keuangan->m_chart();
 		$data['session'] = $this->session->userdata();
-		$data['chat'] = $this->m_chat->list_chat_kasir('kasir');
+		
 		$this->load->view('welcome_message',$data);
 	}
 

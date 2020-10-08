@@ -17,9 +17,9 @@ class Barang extends CI_Controller {
 		//$this->load->library('datatables');
 		$this->load->model('m_barang');
 		$this->load->model('m_ambil');
-		$this->load->model('m_pelanggan');
-		$this->load->model('m_ekspedisi');
+		$this->load->model('m_pelanggan');		
 		$this->load->model('m_gudang');
+		$this->load->model('m_meja');
 
 	}
 
@@ -27,7 +27,7 @@ class Barang extends CI_Controller {
 
 	public function form_barang_sementara()
 	{
-		$data['all'] = $this->m_barang->m_data();	
+		$data['all'] = $this->m_barang->m_data("kopi");	
 		$data['gudang'] = $this->m_gudang->m_data();		
 		$this->load->view('form_barang_sementara',$data);
 		
@@ -372,10 +372,8 @@ class Barang extends CI_Controller {
 
 	public function form_penjualan()
 	{
-		$data['all'] = $this->m_barang->m_data_gudang(1)->result();		
-		$data['pelanggan'] = $this->m_pelanggan->m_data();	
-		$data['eksepedisi'] = $this->m_ekspedisi->m_data();	
-
+		$data['all_meja'] = $this->m_meja->m_data_aktif();
+		
 		$this->load->view('form_penjualan_barang',$data);
 	}
 
@@ -1031,10 +1029,6 @@ class Barang extends CI_Controller {
 		$serialize = $this->input->post();
 
 		
-		$serialize['harga_retail'] = hanya_nomor($serialize['harga_retail']);
-		$serialize['harga_lusin'] = hanya_nomor($serialize['harga_lusin']);
-		$serialize['harga_koli'] = hanya_nomor($serialize['harga_koli']);
-		$serialize['jum_per_koli'] = hanya_nomor($serialize['jum_per_koli']);
 		$serialize['harga_pokok'] = hanya_nomor($serialize['harga_pokok']);
 
 		if($id=='')
