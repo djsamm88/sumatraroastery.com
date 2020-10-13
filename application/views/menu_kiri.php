@@ -82,7 +82,7 @@
 
 
              <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/pengeluaran_bulanan/trx_pengeluaran_bulanan','Transaksi Pengeluaran');return false;">
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/pengeluaran_bulanan/trx_pengeluaran_bulanan/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Transaksi Pengeluaran');return false;">
                 <i class="fa fa-link"></i> <span>Lap.Pengeluaran</span>
               </a>
             </li>
@@ -117,6 +117,8 @@
               </a>
             </li>
 
+
+            <!--
             
              <li>
               <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/data_beli','Pembelian Barang');return false;">
@@ -130,6 +132,8 @@
                 <i class="fa fa-link"></i> <span>Lap.Transaksi</span>
               </a>
             </li>
+
+            -->
 
 
              
@@ -198,44 +202,6 @@
           </ul>
         </li>
         -->
-
-<!--
-
-
-        <li class="treeview">
-          
-          <a href="#"><i class="fa fa-institution"></i> <span>Gudang <span class="label label-warning pull-right badge_gudang"></span></span></span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-
-          <ul class="treeview-menu">
-
-             <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/jenis_kopi/data','Jenis Kopi');return false;">
-                <i class="fa fa-link"></i> <span>Jenis Kopi</span>
-              </a>
-            </li>
-
-             <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/gudang/data','Master Gudang');return false;">
-                <i class="fa fa-link"></i> <span>Nama Gudang</span>
-              </a>
-            </li>
-
-
-            
-            
-            <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/barang/stok_gudang/1','Stok Gudang');return false;">
-                <i class="fa fa-link"></i> <span>Stok Gudang <span class="label label-warning pull-right badge_gudang"></span></span></span>
-              </a>
-            </li>
-
-          </ul>
-        </li>
-      -->
 
 
         
@@ -317,6 +283,84 @@
             </a>
           </li>
 
+
+
+
+
+
+
+
+
+
+
+
+
+        <li class="treeview">
+          
+          <a href="#"><i class="fa fa-institution"></i> <span>Master Gudang <span class="label label-warning pull-right badge_gudang"></span></span></span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+
+          <ul class="treeview-menu">
+
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/jenis_kopi/data','Jenis Kopi');return false;">
+                <i class="fa fa-link"></i> <span>Jenis Kopi</span>
+              </a>
+            </li>
+
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/gudang/data','Master Gudang');return false;">
+                <i class="fa fa-link"></i> <span>Nama Gudang</span>
+              </a>
+            </li>
+
+
+            
+          </ul>
+        </li>
+      
+
+
+
+        <li class="treeview">
+          
+          <a href="#"><i class="fa fa-retweet"></i> <span>Pengeluaran Gudang</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+
+          <ul class="treeview-menu">
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/pengeluaran_bulanan_gudang/data','Master Pengeluaran Gudang');return false;">
+                <i class="fa fa-link"></i> <span>Data Pengeluaran</span>
+              </a>
+            </li>
+
+            
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/pengeluaran_bulanan_gudang/form_pengeluaran_bulanan_gudang','Form Transaksi Gudang');return false;">
+                <i class="fa fa-link"></i> <span>Transaksi</span>
+              </a>
+            </li>
+
+
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/pengeluaran_bulanan_gudang/trx_pengeluaran_bulanan_gudang/?jenis=&tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Transaksi Pengeluaran Gudang');return false;">
+                <i class="fa fa-link"></i> <span>Lap.Pengeluaran</span>
+              </a>
+            </li>
+
+            
+          </ul>
+        </li>
+
+
+
+        
 
         
         <!--

@@ -392,6 +392,7 @@ function notifyMe(notifnya) {
 
   function notif()
   {
+    /*
     $.get("<?php echo base_url()?>index.php/barang/notif",function(e){
       
 
@@ -438,6 +439,7 @@ function notifyMe(notifnya) {
 
       
     })
+    */
   }
 
 

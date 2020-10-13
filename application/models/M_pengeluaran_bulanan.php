@@ -19,10 +19,11 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 		return $q->result();
 	}
 
-	public function m_trx_pengeluaran_bulanan()
+	public function m_trx_pengeluaran_bulanan($tgl_awal,$tgl_akhir)
 	{
 		$q = $this->db->query("SELECT a.*
 								FROM `tbl_pengeluaran_bulanan_transaksi` a 								
+								WHERE tgl_update BETWEEN '$tgl_awal' AND '$tgl_akhir'
 								ORDER BY tgl_update DESC
 							 ");
 		return $q->result();

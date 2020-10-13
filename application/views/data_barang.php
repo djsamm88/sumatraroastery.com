@@ -130,6 +130,7 @@
               <option value="">--- Pilih ---</option>
               <option value="kopi">Kopi</option>
               <option value="menu">Menu</option>
+              <option value="titipan">Titipan</option>
             </select>
             </div>
             <div style="clear: both;"></div><br>
@@ -142,7 +143,10 @@
             <div style="clear: both;"></div><br>
 
         <div class="col-sm-4">Berat</div>
-            <div class="col-sm-8"><input type="number" name="berat" id="berat" class="form-control" placeholder="Berat (Gram) ex: 1000" min="0" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" ></div>
+            <div class="col-sm-8"><input type="number" name="berat" id="berat" class="form-control" placeholder="Berat (Gram) ex: 1000" min="0" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" >
+            <small>Isi jika kopi.</small>
+            </div>
+
             <div style="clear: both;"></div><br>
 
 

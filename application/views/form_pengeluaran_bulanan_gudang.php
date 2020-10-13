@@ -3,7 +3,7 @@
     <section class="content-header">
       <h1 id="judul">
         Selamat datang di Sistem Informasi 
-        <small>UMROH</small>
+        
       </h1>      
     </section>
 
@@ -50,13 +50,20 @@
             <div style="clear:both"></div><br>
 
 
+            <div class="col-sm-4" style="text-align:right">Berat (Gram)</div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control nomor" name="berat" id="berat" >
+              <small><i>Isi jika transaksi kopi.(gram)</i></small>
+            </div> 
+            <div style="clear:both"></div><br>
+
+
 
             <div class="col-sm-4" style="text-align:right">Keterangan Pengeluaran</div>
             <div class="col-sm-8">
               <textarea type="text" class="form-control" name="keterangan" id="keterangan" required></textarea>
             </div> 
             <div style="clear:both"></div><br>
-
 
 
             <div class="col-sm-4" style="text-align:right">Bukti Pembayaran</div>
@@ -66,7 +73,6 @@
             <div style="clear:both"></div><br>
 
             
-
             
             <div class="col-sm-12">
                 <div id="t4_info_form"></div>
@@ -97,13 +103,12 @@ hanya_nomor(".nomor");
 
 
 
-
 $("#form_pengeluarannya").on("submit",function(){
   var ser = $(this).serialize();
 
 
   $.ajax({
-            url: "<?php echo base_url()?>index.php/"+classnya+"/simpan_pengeluaran_bulanan",
+            url: "<?php echo base_url()?>index.php/"+classnya+"/simpan_pengeluaran_bulanan_gudang",
             type: "POST",
             contentType: false,
             processData:false,
@@ -118,7 +123,7 @@ $("#form_pengeluarannya").on("submit",function(){
               $("#simpan").hide();
               
               setTimeout(function(){
-                  eksekusi_controller('<?php echo base_url()?>index.php/'+classnya+'/trx_pengeluaran_bulanan/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>',document.title);
+                  eksekusi_controller('<?php echo base_url()?>index.php/pengeluaran_bulanan_gudang/trx_pengeluaran_bulanan_gudang/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>',document.title);
                 },3000);
 
             },
@@ -129,6 +134,7 @@ $("#form_pengeluarannya").on("submit",function(){
 
   return false;
 })
+
 
 $("#judul2").html("DataTable "+document.title);
 </script>

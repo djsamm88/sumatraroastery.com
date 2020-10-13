@@ -30,6 +30,40 @@
   }
 ?>
 
+
+<?php 
+  foreach ($menu_titipan as $titipan) {
+    
+                  echo "
+
+                    <div class='col-sm-3'>
+                      <div class='alert text-center' style='min-height:150px;margin:5px;border:1px solid #aaa'>
+                        <b>$titipan->nama_barang</b><br>
+                          <img src='".base_url()."uploads/".$titipan->gambar."' class='img img-rounded'  height='130px' width='130px'>
+                          <br><b>Rp.".rupiah($titipan->harga_pokok)."
+                            <input type='hidden' value='$titipan->harga_pokok' id='harga_pokok'>
+                          </b>
+                          <div class='row'>
+                            <div class='col-xs-6'>
+                            <input type='number' name='qty' class='form-control' id='qty' placeholder='Jumlah' value='1' >
+                            </div>
+                            <div class='col-xs-6'>
+                              <div id='jum_order' class='text-right' >Jumlah</div>
+                            </div>
+                            </div>
+                          <input type='hidden'  value='$titipan->id' id='id'>
+                          <button class='btn btn-success btn-block' id='order_menu' onclick='order($(this))'>Order</button>
+                          <small><i>Untuk mengurangi, gunakan minus (-)</i></small>
+                          <div style='clear:both'></div><br>
+                      </div>  
+                    </div>
+
+                  ";
+  }
+?>
+
+
+
 <div style='clear:both'></div><br>
 <br>
 <b>Oleh-oleh Kopi Medan: </b><br>

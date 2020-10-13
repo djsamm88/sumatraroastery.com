@@ -47,8 +47,11 @@ class Pengeluaran_bulanan extends CI_Controller {
 
 	public function trx_pengeluaran_bulanan()
 	{
-			
-		$data['all'] = $this->m_pengeluaran_bulanan->m_trx_pengeluaran_bulanan();	
+		$tgl_awal = $this->input->get('tgl_awal');
+		$tgl_akhir = $this->input->get('tgl_akhir');
+		$data['tgl_awal']=$tgl_awal;
+		$data['tgl_akhir']=$tgl_akhir;
+		$data['all'] = $this->m_pengeluaran_bulanan->m_trx_pengeluaran_bulanan($tgl_awal,$tgl_akhir);	
 		$this->load->view('pengeluaran_bulanan_trx',$data);
 	}
 
@@ -64,6 +67,7 @@ class Pengeluaran_bulanan extends CI_Controller {
 		$data = $this->input->post();
 		//var_dump($data);		
 		$data['jumlah'] = hanya_nomor($data['jumlah']);
+		$data['bukti_pembayaran'] 	= upload_file('bukti_pembayaran');
 
 		$this->db->set($data);
 		$this->db->insert('tbl_pengeluaran_bulanan_transaksi');
