@@ -85,11 +85,11 @@ class Meja extends CI_Controller {
 		$data['menu_menu'] = $this->m_barang->m_data('menu');	
 		$data['menu_kopi'] = $this->m_barang->m_data('kopi');	
 		$data['menu_titipan'] = $this->m_barang->m_data('titipan');	
+		$data['menu_roasting'] = $this->m_barang->m_data('roasting');	
 		$data['id']=$id;
 		$this->load->view('buku_menu',$data);
 
 	}
-
 
 
 	public function detail_pesanan($id)

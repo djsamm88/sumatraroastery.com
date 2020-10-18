@@ -115,6 +115,41 @@
 </table>
 
 
+<div style="clear: both;"></div>
+
+<?php 
+  foreach ($menu_roasting as $roasting) {
+    
+                  echo "
+
+                    <div class='col-sm-3'>
+                      <div class='alert text-center' style='min-height:150px;margin:5px;border:1px solid #aaa'>
+                        <b>$roasting->nama_barang</b><br>
+                          <img src='".base_url()."uploads/".$roasting->gambar."' class='img img-rounded'  height='130px' width='130px'>
+                          <br><b>Rp.".rupiah($roasting->harga_pokok)."
+                            <input type='hidden' value='$roasting->harga_pokok' id='harga_pokok'>
+                          </b>
+                          <div class='row'>
+                            <div class='col-xs-6'>
+                            <input type='number' name='qty' class='form-control' id='qty' placeholder='Jumlah' value='1' >
+                            </div>
+                            <div class='col-xs-6'>
+                              <div id='jum_order' class='text-right' >Jumlah</div>
+                            </div>
+                            </div>
+                          <input type='hidden'  value='$roasting->id' id='id'>
+                          <button class='btn btn-success btn-block' id='order_menu' onclick='order_roasting($(this))'>Order</button>
+                          <small><i>Untuk mengurangi, gunakan minus (-)</i></small>
+                          <div style='clear:both'></div><br>
+                      </div>  
+                    </div>
+
+                  ";
+  }
+?>
+
+
+
 
 <script type="text/javascript">
   function order(ini)
@@ -136,6 +171,28 @@
     })
     
   }
+
+
+  function order_roasting(ini)
+    {
+    var jum_awal  = parseInt(ini.parent().find("#jum_order").text()) || 0;
+    var jum_order = parseInt(ini.parent().find("#qty").val()) || 0;
+    var harga_pokok = parseInt(ini.parent().find("#harga_pokok").val()) || 0;
+
+    ini.parent().find("#jum_order").html(jum_awal+jum_order);
+    console.log(jum_order);
+
+    //ini.attr("disabled","disabled");
+
+    ini.parent().find("#qty").val('');
+    var id = parseInt(ini.parent().find("#id").val()) || 0;
+    var ser = {qty:jum_order,id_barang:id,id_meja:<?php echo $id?>,harga_pokok:harga_pokok};
+    $.post("<?php echo base_url()?>index.php/meja/order",ser,function(){
+
+    })
+    
+  }
+
 
   function order_kopi(ini)
   {

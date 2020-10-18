@@ -34,6 +34,8 @@
               <th>No</th>
                <th width="100px">id</th>
                 <th>nama_kopi</th>                
+                <th>Harga beli/Gram</th>                
+                <th>Harga jual/Gram</th>                
               <th>Action</th>
               
         </tr>
@@ -57,6 +59,8 @@
                 <td>$no</td>
                 <td>$x->id</td>
                 <td>$x->nama_kopi</td>                          
+                <td>".rupiah($x->harga_beli)."</td>                          
+                <td>".rupiah($x->harga_jual)."</td>                          
                 <td>
                   $btn
                 </td>
@@ -99,6 +103,22 @@
             <div class="col-sm-4 judul">nama_kopi</div>
             <div class="col-sm-8">
               <input class="form-control" name="nama_kopi" id="nama_kopi" required>
+            </div>
+            <div style="clear:both"></div>
+            <br>
+
+
+            <div class="col-sm-4 judul">harga beli/gram</div>
+            <div class="col-sm-8">
+              <input class="form-control nomor" name="harga_beli" id="harga_beli" required>
+            </div>
+            <div style="clear:both"></div>
+            <br>
+
+
+            <div class="col-sm-4 judul">harga jual/gram</div>
+            <div class="col-sm-8">
+              <input class="form-control nomor" name="harga_jual" id="harga_jual" required>
             </div>
             <div style="clear:both"></div>
             <br>
@@ -150,6 +170,8 @@ function edit_admin(id)
     //console.log(e[0].id_desa);
     $("#id").val(e[0].id);
     $("#nama_kopi").val(e[0].nama_kopi);    
+    $("#harga_beli").val(e[0].harga_beli);    
+    $("#harga_jual").val(e[0].harga_jual);    
     
   })
   $("#myModal").modal('show');

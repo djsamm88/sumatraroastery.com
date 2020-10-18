@@ -131,6 +131,7 @@
               <option value="kopi">Kopi</option>
               <option value="menu">Menu</option>
               <option value="titipan">Titipan</option>
+              <option value="roasting">Jasa Roasting</option>
             </select>
             </div>
             <div style="clear: both;"></div><br>

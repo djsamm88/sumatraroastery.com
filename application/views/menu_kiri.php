@@ -289,7 +289,7 @@
 
 
 
-
+<hr>
 
 
 
@@ -307,7 +307,7 @@
 
              <li>
               <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/jenis_kopi/data','Jenis Kopi');return false;">
-                <i class="fa fa-link"></i> <span>Jenis Kopi</span>
+                <i class="fa fa-link"></i> <span>Set Harga Kopi</span>
               </a>
             </li>
 
@@ -357,6 +357,104 @@
             
           </ul>
         </li>
+
+
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/gudang/kasir',' Kasir Gudang');return false;">
+            <i class="fa fa-shopping-cart"></i> <span>Kasir Gudang</span>
+          </a>
+        </li>
+
+
+
+        
+        <li class="treeview">
+          
+          <a href="#"><i class="fa fa-dollar"></i> <span>Modal Gudang</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+
+          <ul class="treeview-menu">
+
+            <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan_gudang/form_penambahan_saldo','Penambahan Modal');return false;">
+                <i class="fa fa-link"></i> <span>Penambahan Modal</span>
+              </a>
+            </li>
+
+
+            <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan_gudang/form_penarikan_saldo','Penarikan Modal');return false;">
+                <i class="fa fa-link"></i> <span>Penarikan Modal</span>
+              </a>
+            </li>
+
+
+            <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan_gudang/form_koreksi','Koreksi Keuangan');return false;">
+                <i class="fa fa-link"></i> <span>Koreksi Keuangan</span>
+              </a>
+            </li>
+
+
+            
+          </ul>
+        </li>
+
+
+
+
+        <li class="treeview">
+          
+          <a href="#"><i class="fa fa-dollar"></i> <span>Lap.Keuangan Gudang</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+
+          <ul class="treeview-menu">
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan_gudang/kas','Saldo');return false;">
+                <i class="fa fa-link"></i> <span>Saldo</span>
+              </a>
+            </li>
+
+           
+
+            
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan_gudang/laporan_jurnal/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Jurnal');return false;">
+                <i class="fa fa-link"></i> <span>Jurnal</span>
+              </a>
+            </li>
+
+
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan_gudang/arus_kas','Laporan Arus Kas');return false;">
+                <i class="fa fa-link"></i> <span>Arus Kas</span>
+              </a>
+            </li>
+
+
+            <!--
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan/laporan_laba/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Laba Rugi');return false;">
+                <i class="fa fa-link"></i> <span>Laba Rugi</span>
+              </a>
+            </li>
+            -->
+
+
+
+                        
+          </ul>
+        </li>
+
+        
+
 
 
 
