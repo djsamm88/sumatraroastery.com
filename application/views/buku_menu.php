@@ -20,6 +20,7 @@
                             </div>
                             </div>
                           <input type='hidden'  value='$menu->id' id='id'>
+                          <input type='hidden'  value='$menu->berat' id='berat'>
                           <button class='btn btn-success btn-block' id='order_menu' onclick='order($(this))'>Order</button>
                           <small><i>Untuk mengurangi, gunakan minus (-)</i></small>
                           <div style='clear:both'></div><br>
@@ -52,6 +53,7 @@
                             </div>
                             </div>
                           <input type='hidden'  value='$titipan->id' id='id'>
+
                           <button class='btn btn-success btn-block' id='order_menu' onclick='order($(this))'>Order</button>
                           <small><i>Untuk mengurangi, gunakan minus (-)</i></small>
                           <div style='clear:both'></div><br>
@@ -98,9 +100,10 @@
           <input type='number' name='qty' class='form-control' placeholder='Jumlah' value='1' id='qty'>
           <input type='hidden'  value='$kopi->id' id='id'>
           <input type='hidden' value='$kopi->harga_pokok' id='harga_pokok'>
+          <input type='hidden'  value='$kopi->berat' id='berat'>
         </td>
         <td class='danger' width='100px' id='jum_order'>
-
+        
         </td>
         <td class='' width='100px'>
           <button  class='btn btn-success btn-block ' id='order_kopi' onclick='order_kopi($(this))'>Order</button>
@@ -165,7 +168,8 @@
 
     ini.parent().find("#qty").val('');
     var id = parseInt(ini.parent().find("#id").val()) || 0;
-    var ser = {qty:jum_order,id_barang:id,id_meja:<?php echo $id?>,harga_pokok:harga_pokok};
+    var berat = parseInt(ini.parent().find("#berat").val()) || 0;
+    var ser = {qty:jum_order,id_barang:id,id_meja:<?php echo $id?>,harga_pokok:harga_pokok,berat:berat};
     $.post("<?php echo base_url()?>index.php/meja/order",ser,function(){
 
     })
@@ -207,7 +211,9 @@
     ini.parent().parent().find("#qty").val('');
 
     var id = parseInt(ini.parent().parent().find("td #id").val()) || 0;
-    var ser = {qty:jum_order,id_barang:id,id_meja:<?php echo $id?>,harga_pokok:harga_pokok};
+    var berat = parseInt(ini.parent().parent().find("td #berat").val()) || 0;
+    
+    var ser = {qty:jum_order,id_barang:id,id_meja:<?php echo $id?>,harga_pokok:harga_pokok,berat:berat};
     $.post("<?php echo base_url()?>index.php/meja/order",ser,function(){
 
     })

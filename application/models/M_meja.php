@@ -58,6 +58,7 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 	public function all_trx($awal,$akhir)
 	{
 		
+
 		$q = $this->db->query("
 
 							SELECT a.*,b.nama_admin,SUM(harga_pokok*qty) AS total FROM 
@@ -79,6 +80,65 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 
 		return $q->result();
 	}
+
+
+
+
+	public function all_trx_titipan($awal,$akhir)
+	{
+		
+		
+		$q = $this->db->query("
+
+							SELECT a.id_barang,a.harga_pokok,b.nama_barang,b.kategori, 
+									SUM(qty) AS qty, 
+									SUM(a.qty*a.harga_pokok) AS total 
+								FROM `trx_meja` a 
+								LEFT JOIN tbl_barang b ON a.id_barang=b.id 
+								WHERE b.kategori='titipan' AND (tgl_trx BETWEEN '$awal' AND '$akhir') 
+								GROUP BY id_barang
+							");
+
+
+		return $q->result();
+	}
+
+
+
+	public function all_trx_roasting($awal,$akhir)
+	{
+		
+		
+		$q = $this->db->query("
+
+							SELECT a.id_barang,a.harga_pokok,b.nama_barang,b.kategori, 
+									SUM(b.berat) AS berat, 
+									SUM(qty) AS qty, 
+									SUM(a.qty*a.harga_pokok) AS total 
+								FROM `trx_meja` a 
+								LEFT JOIN tbl_barang b ON a.id_barang=b.id 
+								WHERE b.kategori='roasting' AND (tgl_trx BETWEEN '$awal' AND '$akhir') 
+								GROUP BY id_barang
+							");
+
+
+		return $q->result();
+	}
+
+
+	public function m_all_kopi()
+	{
+		
+		
+		$q = $this->db->query("
+								SELECT * FROM tbl_barang WHERE kategori='kopi'
+							");
+
+
+		return $q->result();
+	}
+
+
 
 	
 
@@ -148,6 +208,8 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 							url_bukti='$url_bukti' 
 						WHERE id_meja='$id_meja' AND status=0");
 		return $group_trx;
+
+
 	}
 	
 }

@@ -48,13 +48,10 @@
                       $no = 0;
                       foreach($all as $x)
                       {
-                        if($x->id=='6')//ini untuk pembelian kopi tidak bisa edit hapus
-                        {
-                          $btn = "";
-                        }else{
-                          $btn = "<button class='btn btn-warning btn-xs' onclick='edit($x->id);return false;'>Edit</button>
+                        
+
+                         $btn = "<button class='btn btn-warning btn-xs' onclick='edit($x->id);return false;'>Edit</button>
                                 <button class='btn btn-danger btn-xs' onclick='hapus($x->id);return false;'>Hapus</button>    ";
-                        }
 
                         
                         $no++;

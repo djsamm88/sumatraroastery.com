@@ -50,14 +50,6 @@
             <div style="clear:both"></div><br>
 
 
-            <div class="col-sm-4" style="text-align:right">Berat (Gram)</div>
-            <div class="col-sm-8">
-              <input type="text" class="form-control nomor" name="berat" id="berat" >
-              <small><i>Isi jika transaksi kopi.(gram)</i></small>
-            </div> 
-            <div style="clear:both"></div><br>
-
-
 
             <div class="col-sm-4" style="text-align:right">Keterangan Pengeluaran</div>
             <div class="col-sm-8">

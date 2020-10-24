@@ -17,8 +17,87 @@ class Meja extends CI_Controller {
 		//$this->load->library('datatables');
 		$this->load->model('m_meja');
 		$this->load->model('m_barang');
+		$this->load->model('m_jenis_kopi');
 		
 	}
+
+
+
+	public function kasir_agen()
+	{
+		$data['data_kopi'] = $this->m_meja->m_all_kopi();	
+		$this->load->view('kasir_agen',$data);
+	}
+
+
+
+
+	public function simpan_kasir_agen()
+	{
+		$data = $this->input->post();
+		//var_dump($data);		
+		$trx['bukti'] 		= upload_file('bukti_pembayaran');
+		$trx['kode_trx']	= date('ymdhis')."_".$this->session->userdata('id_admin');
+		$trx['jenis_pembayaran'] = $data['jenis_pembayaran'];
+		for ($i=0; $i <count($data['id_barang']) ; $i++) { 
+			if(hanya_nomor($data['qty'][$i])>0)
+			{
+				$trx['berat'] = hanya_nomor($data['berat'][$i]);
+				$trx['qty'] = hanya_nomor($data['qty'][$i]);
+				$trx['id_barang'] = $data['id_barang'][$i];
+				$trx['harga']	= hanya_nomor($data['harga_agen'][$i]);
+				$trx['nama']  	= $data['nama'];
+				$trx['hp']  	= $data['hp'];
+				$trx['keterangan']  = $data['keterangan']." - ".date('Y-m-d H:i:s');				
+				$trx['kategori_trx']='keluar';
+
+				$this->db->set($trx);
+				$this->db->insert('kopi_trx');
+				$id_trx = $this->db->insert_id();
+
+				/*********** insert ke transaksi **************/	
+
+				$ser_trx = array(
+								"id_group"=>"19",							
+								"keterangan"=>"Qty: ".$data['qty'][$i] ." - Harga:  ".rupiah($data['harga_agen'][$i])."@ - kpd : ".$data['nama']." - ". $trx['keterangan'],
+								"jumlah"=>($trx['harga']),
+								"url_bukti"=>$trx['bukti']
+							);				
+				/* untuk id_referensi = id_group/id_table*/
+				$ser_trx['id_referensi'] = $id_trx;	
+				$this->db->set($ser_trx);
+				$this->db->insert('tbl_transaksi');
+				/*********** insert ke transaksi **************/
+
+				if($trx['jenis_pembayaran']=='utang')
+				{
+					/*********** insert ke transaksi **************/	
+					$ser_trx = array(
+									"id_group"=>"18",							
+									"keterangan"=>"Qty: ".$data['qty'][$i] ." - Harga:  ".rupiah($data['harga_agen'][$i])."@ - kpd : ".$data['nama']." - ". $trx['keterangan'],
+									"jumlah"=>($trx['harga']),
+									"url_bukti"=>$trx['bukti']
+								);				
+					/* untuk id_referensi = id_group/id_table*/
+					$ser_trx['id_referensi'] = $id_trx;	
+					$this->db->set($ser_trx);
+					$this->db->insert('tbl_transaksi');
+					/*********** insert ke transaksi **************/					
+				}
+			}
+				
+		}
+
+		echo $trx['kode_trx'];
+
+		
+
+
+		die("");
+
+	}
+
+
 
 
 	public function data()
@@ -106,6 +185,9 @@ class Meja extends CI_Controller {
 		$data['tgl_awal'] = $this->input->get('tgl_awal');
 		$data['tgl_akhir'] = $this->input->get('tgl_akhir');
 		$data['all'] = $this->m_meja->all_trx($data['tgl_awal'],$data['tgl_akhir']);
+		$data['titipan'] = $this->m_meja->all_trx_titipan($data['tgl_awal'],$data['tgl_akhir']);
+		$data['roasting'] = $this->m_meja->all_trx_roasting($data['tgl_awal'],$data['tgl_akhir']);
+
 		$this->load->view('lap_penjualan',$data);
 	}
 
@@ -131,7 +213,11 @@ class Meja extends CI_Controller {
 	{
 		$serialize = $this->input->post();
 		$serialize['id_admin'] = $this->session->userdata('id_admin');
-		$this->m_meja->insert_trx($serialize);
+		if($serialize['qty']>0)
+		{
+			$this->m_meja->insert_trx($serialize);	
+		}
+		
 		
 	}
 
@@ -153,10 +239,57 @@ class Meja extends CI_Controller {
 		$this->db->set($data);
 		$this->db->insert('tbl_transaksi');
 
+		
+
+
+
+		$q = $this->db->query("SELECT * FROM trx_meja WHERE group_trx='$group_trx' AND berat>0");
+		
+		foreach ($q->result() as $key) {
+			$this->db->query("INSERT INTO kopi_trx 
+									SET 
+									id_barang='$key->id_barang',
+									kategori_trx='keluar', 
+									berat='$key->berat',
+									harga='$key->harga_pokok',
+									qty='$key->qty',
+									kode_trx='$key->group_trx',
+									bukti='$key->url_bukti',
+									jenis_pembayaran='$key->jenis_pembayaran'
+
+							");
+
+
+		}
+
 		echo $serialize['group_trx'];
 	}
 
 
+
+	public function cicilan_agen()
+	{
+		$data['all'] = null;	
+		$this->load->view('form_cicilan_agen',$data);
+
+	}
+
+
+
+	public function simpan_cicilan_agen()
+	{
+		$serialize = $this->input->post();
+		$serialize['jumlah']=hanya_nomor($serialize['jumlah']);
+		$serialize['id_group']='17';
+		$serialize['url_bukti'] = upload_file('bukti_pembayaran');
+
+		$serialize['keterangan'] = "Pemayaran Cicilan A.n: ".$serialize['nama']." - ".$serialize['keterangan'];
+		unset($serialize['nama']);
+
+		$this->db->set($serialize);
+		$this->db->insert('tbl_transaksi');
+
+	}
 
 
 	public function struk_penjualan($group_trx)

@@ -278,7 +278,7 @@
 
 
            <li>
-            <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/penjualan/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+2 days'));?>','Laporan Jurnal');return false;">
+            <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/penjualan/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+2 days'));?>','Laporan Penjualan');return false;">
               <i class="fa fa-link"></i> <span>Penjualan</span>
             </a>
           </li>
@@ -287,7 +287,30 @@
 
 
 
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/kasir_agen',' Kasir Agen');return false;">
+            <i class="fa fa-shopping-cart"></i> <span>Agen</span>
+          </a>
+        </li>
 
+
+
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/cicilan_agen',' Kasir Agen');return false;">
+            <i class="fa fa-shopping-cart"></i> <span>Cicilan Agen</span>
+          </a>
+        </li>
+
+
+
+
+            
+             <li>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan/laporan_jurnal/?tgl_awal=<?php echo date('Y-m-d')?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Harian');return false;">
+                <i class="fa fa-link"></i> <span>Laporan Harian</span>
+              </a>
+            </li>
 
 <hr>
 
@@ -359,12 +382,48 @@
         </li>
 
 
+         
+        <li class="treeview">
+          
+          <a href="#"><i class="fa fa-retweet"></i> <span>Kasir Gudang</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
 
+          <ul class="treeview-menu">
+
+            
         <li>
           <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/gudang/kasir',' Kasir Gudang');return false;">
-            <i class="fa fa-shopping-cart"></i> <span>Kasir Gudang</span>
+            <i class="fa fa-shopping-cart"></i> <span>Penjualan</span>
           </a>
         </li>
+
+
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/gudang/kasir_beli',' Kasir Gudang');return false;">
+            <i class="fa fa-shopping-cart"></i> <span>Pembelian</span>
+          </a>
+        </li>
+
+
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/gudang/laporan_jual_beli/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Penjualan Pembelian');return false;">
+            <i class="fa fa-link"></i> <span>Laporan</span>
+          </a>
+        </li>
+
+
+
+        
+
+        </ul>
+      </li>
+        
+
 
 
 

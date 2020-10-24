@@ -15,7 +15,7 @@
 <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Trx Penjualan Kopi</h3>
+          <h3 class="box-title">Trx Pembelian Kopi</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -34,6 +34,7 @@
   
   <div class="col-sm-6">
     <input type="text" name="nama" id="nama" value="" class="form-control" required placeholder="Nama">
+    
     <small><i>Nama Pembeli</i></small>
   </div>
   <div class="col-sm-6">
@@ -68,11 +69,11 @@
       <tr>
         <td width='10px'>$no</td>
         <td class='warning'>$kopi->nama_kopi</td>
-        <td class='success text-right' id='harga'>".rupiah($kopi->harga_jual)."</td>        
+        <td class='success text-right' id='harga'>".rupiah($kopi->harga_beli)."</td>        
         <td class='danger' width='100px'>
-          <input type='text' name='berat[]' class='form-control nomor' placeholder='Jumlah' required value='0' id='berat'>
+          <input type='text' name='berat[]' class='form-control nomor' required placeholder='Jumlah' value='0' id='berat'>
           <input type='hidden'  value='$kopi->id' id='id' name='id_kopi[]'>
-          <input type='hidden'  value='$kopi->harga_jual' id='harga_jual' name='harga_jual[]'>
+          <input type='hidden'  value='$kopi->harga_beli' id='harga_beli' name='harga_beli[]'>
           
         </td>
         
@@ -83,13 +84,13 @@
 </tbody>
 <tfoot>
   <tr>
-    <td colspan="2" class="text-right">Total:</td>
+    <td colspan="2">Total:</td>
     <td id="total" class="text-right">0</td>
     <td id="total_berat" class="text-right">0</td>
   </tr>
 </tfoot>
 </table>
-          
+          <!--
           <div class="col-sm-4" style="text-align:right"> Pembayaran</div>
             <div class="col-sm-8">
             <select class="form-control" required="required" name="jenis_pembayaran">
@@ -101,6 +102,7 @@
           </div>
           <br>
           <br>
+          -->
 
 
 
@@ -136,7 +138,6 @@
 
 <script type="text/javascript">
 
-
 $("#tbl_trx tbody tr td #berat").on("keydown keyup mousedown mouseup select contextmenu drop",function(){
   total();
 })
@@ -162,6 +163,7 @@ function total()
 
 }
 
+
 hanya_nomor(".nomor");
 function buang_titik(mystring)
 {
@@ -172,14 +174,14 @@ function formatRupiah(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-
+  
   $("#penjualan_barang").on("submit",function(){
     if(confirm("Anda yakin? Pastikan tidak ada kesalahan."))
     {
       
       var ser = $(this).serialize();
       $.ajax({
-              url: "<?php echo base_url()?>index.php/gudang/simpan_kasir",
+              url: "<?php echo base_url()?>index.php/gudang/simpan_kasir_beli",
               type: "POST",
               contentType: false,
               processData:false,
@@ -195,8 +197,8 @@ function formatRupiah(x) {
                 
 
                 //bayar
-                //window.open("<?php echo base_url()?>index.php/gudang/struk_kasir_gudang/"+data);
                 window.open("<?php echo base_url()?>index.php/gudang/struk/"+data);
+                
 
               },
               error: function(){

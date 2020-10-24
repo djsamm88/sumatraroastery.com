@@ -10,6 +10,7 @@
     <!-- Main content -->
     <section class="content container-fluid" >
 
+
       <!--------------------------
         | Your Page Content Here |
         -------------------------->    
@@ -93,6 +94,125 @@
            </tfoot>
   </table>
 </div>
+
+
+
+Barang Titipan:
+<div class="table-responsive">              
+<table id="tbl_datanya_barang" class="table  table-striped table-bordered"  cellspacing="0" width="100%">
+      <thead>
+        <tr>
+              
+              <th>No</th>                    
+              <th>Id Barang</th>                     
+              <th>Nama Barang</th>                                               
+              <th>Terjual</th>                                                                             
+              <th>Harga @</th>                     
+              <th>SubTotal</th>                     
+              
+              
+              
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        
+        $non = 0;
+        $tot_titipan = 0;
+        foreach($titipan as $xx)
+        {
+          
+          $non++;
+          $tot_titipan+=$xx->total;
+            
+            echo (" 
+              
+              <tr>
+                <td>$non</td>                
+                <td>".($xx->id_barang)." </td>                
+                <td>".($xx->nama_barang)." </td>                
+                <td>".rupiah($xx->qty)." </td>                
+                <td>".rupiah($xx->harga_pokok)." </td>                
+                <td align=right>".rupiah($xx->total)."</td>                                
+                
+              </tr>
+          ");
+          
+        }
+        
+        
+        ?>
+      </tbody>
+       <tfoot>
+             <tr>
+                <th colspan='5' style='text-align:right'><b>Total</b></th>
+                <th style='text-align:right'><b>Rp.<?php echo rupiah($tot_titipan)?></b></th>
+             </tr>
+           </tfoot>
+  </table>
+</div>
+
+
+
+
+Jasa Roasting:
+<div class="table-responsive">              
+<table id="tbl_datanya_barang" class="table  table-striped table-bordered"  cellspacing="0" width="100%">
+      <thead>
+        <tr>
+              
+              <th>No</th>                    
+              <th>Id Barang</th>                     
+              <th>Nama Barang</th>                                               
+              <th>Qty</th>                                                                             
+              <th>Berat</th>                                                                             
+              <th>Harga @</th>                     
+              <th>Sub Total</th>                     
+              
+              
+              
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        
+        $non = 0;
+        $tot_roasting = 0;
+        foreach($roasting as $xxx)
+        {
+          
+          $non++;
+          $tot_roasting+=$xxx->total;
+            
+            echo (" 
+              
+              <tr>
+                <td>$non</td>                
+                <td>".($xxx->id_barang)." </td>                
+                <td>".($xxx->nama_barang)." </td>                
+                <td>".rupiah($xxx->qty)." </td>                
+                <td>".rupiah($xxx->berat)." </td>                
+                <td>".rupiah($xxx->harga_pokok)." </td>                
+                <td align=right>".rupiah($xxx->total)."</td>                                
+                
+              </tr>
+          ");
+          
+        }
+        
+        
+        ?>
+      </tbody>
+       <tfoot>
+             <tr>
+                <th colspan='6' style='text-align:right'><b>Total</b></th>
+                <th style='text-align:right'><b>Rp.<?php echo rupiah($tot_roasting)?></b></th>
+             </tr>
+           </tfoot>
+  </table>
+</div>
+
+
 
 
         </div>

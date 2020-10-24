@@ -41,6 +41,7 @@
               <th width="10px">Id Barang</th>           
               <th>Barang</th>                     
               <th>Harga</th>                                   
+              <th>Harga Agen</th>                                   
                    
               <th>Kategori</th>                                   
               <th>Berat (Gram)</th>                
@@ -70,6 +71,7 @@
                 <td>$x->id</td>
                 <td>$x->nama_barang</td>                
                 <td>".rupiah($x->harga_pokok)."</td>      
+                <td>".rupiah($x->harga_agen)."</td>      
                 <td>$x->kategori</td>                                                                        
                 <td>$x->berat</td>                           
                 <td><a target='blank' href='".base_url()."uploads/$x->gambar'>$x->gambar</a></td>                           
@@ -123,6 +125,10 @@
         
         <div class="col-sm-4">Harga</div>
             <div class="col-sm-8"><input type="text" name="harga_pokok" id="harga_pokok" required="required" class="form-control nomor" placeholder="harga jual" ></div>
+            <div style="clear: both;"></div><br>
+
+            <div class="col-sm-4">Harga Agen</div>
+            <div class="col-sm-8"><input type="text" name="harga_agen" id="harga_agen" required="required" class="form-control nomor" placeholder="harga jual agen" ></div>
             <div style="clear: both;"></div><br>
         
       <div class="col-sm-4">Kategori</div>
@@ -184,16 +190,12 @@ function edit(id)
     $("#nama_barang").val(e[0].nama_barang);
     
     $("#harga_pokok").val(e[0].harga_pokok);
+    $("#harga_agen").val(e[0].harga_agen);
     $("#kategori").val(e[0].kategori);
     $("#berat").val(e[0].berat);
     $("#gambar").val(e[0].gambar);
     console.log(e[0].qty);
-    if(e[0].qty!="0")
-    {      
-      $('#harga_pokok').prop('readonly', false);
-    }else{
-      $('#harga_pokok').prop('readonly', true);
-    }
+    
     
   })
   $("#myModal").modal('show');

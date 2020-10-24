@@ -33,42 +33,45 @@ font-size:10px;
 </tr>
 <tr>	
 	<td>No.TRX</td>
-	<td>: <?php echo $data[0]->group_trx?></td>	
-</tr>
-<tr>
-	<td>Kasir</td>
-	<td>: <?php echo $data[0]->nama_admin?></td>	
+	<td>: <?php echo $data[0]->kode_trx?></td>	
 </tr>
 
 <tr>
-	<td>Id Meja</td>
-	<td>: <?php echo $data[0]->id_meja?></td>	
+	<td>Kategori</td>
+	<td>: <?php echo $data[0]->kategori_trx?></td>	
+</tr>
+
+
+<tr>
+	<td>Kpd</td>
+	<td>: <?php echo $data[0]->nama?></td>	
 </tr>
 
 </table>
 <hr style="border-top: dotted 1px;" />
-<center>Daftar Belanja</center>
+<center>Daftar Transaksi</center>
 <table class="table" width="100%">
 <tr>
 	<td>ID</td>
-	<td>Barang </td>	
+	<td>Kopi </td>	
 	<td align=right>Harga </td>
-	<td align=right>Qty </td>
-	<td align=right>Sub Total </td>
+	<td align=right>Berat </td>
+	
 </tr>
 <?php 
 	$tot = 0;
+	$tot_b = 0;
 
 	foreach ($data as $key ) 
 	{
-		$tot+=($key->harga_pokok*$key->qty);
+		$tot+=($key->harga);		
+		$tot_b+=($key->berat);		
 		echo "
 				<tr>
 					<td>$key->id</td>
-					<td>$key->nama_barang [$key->berat]</td>					
-					<td align=right> ".rupiah($key->harga_pokok)."</td>
-					<td align=right>$key->qty</td>
-					<td align=right> ".rupiah($key->harga_pokok*$key->qty)."</td>
+					<td>$key->nama_kopi</td>					
+					<td align=right> ".rupiah($key->harga)."</td>
+					<td align=right> ".rupiah($key->berat)."</td>
 					
 				</tr>
 		";
@@ -78,8 +81,9 @@ font-size:10px;
 	
 	echo "
 		<tr>
-			<td colspan=4 align=right>Total</td>
+			<td colspan=2 align=right>Total</td>
 			<td align=right><b>".rupiah($tot)."</b></td>
+			<td align=right><b>".rupiah($tot_b)."</b></td>
 		</tr>
 		
 		

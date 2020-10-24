@@ -124,6 +124,8 @@ class Laporan_keuangan extends CI_Controller {
 	}
 
 
+
+
 	public function laporan_jurnal_pelanggan($id_pelanggan)
 	{
 		$data['all'] = $this->m_laporan_keuangan->m_jurnal_pelanggan($id_pelanggan);		
