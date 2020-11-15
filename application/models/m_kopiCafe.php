@@ -9,8 +9,12 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 			$this->load->helper('custom_func');
 		}
 
+
+/*** gimana ini ***/
+
 	public function m_stok($kategori=null)	
 	{
+
 
 		if($kategori==null)
 		{
