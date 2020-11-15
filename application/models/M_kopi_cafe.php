@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASEPATH'))exit('No direct script access allowed');
 
-	class M_kopiCafe extends CI_Model {
+	class M_kopi_cafe extends CI_Model {
 		
 		function __construct() {
 			parent::__construct();

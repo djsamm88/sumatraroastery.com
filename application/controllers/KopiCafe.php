@@ -15,7 +15,7 @@ class KopiCafe extends CI_Controller {
 		$this->load->helper('text');
 		date_default_timezone_set("Asia/jakarta");
 		//$this->load->library('datatables');
-		$this->load->model('m_kopiCafe');
+		$this->load->model('m_kopi_cafe');
 		$this->load->model('m_jenis_kopi');
 		$this->load->model('m_barang');
 		
@@ -27,7 +27,7 @@ class KopiCafe extends CI_Controller {
 	public function roasting_cafe()
 	{
 		$data['data_kopi'] = $this->m_jenis_kopi->m_data();	
-		$data['stok'] = $this->m_kopiCafe->m_stok_kopi();	
+		$data['stok'] = $this->m_kopi_cafe->m_stok_kopi();	
 		$this->load->view('roasting_cafe',$data);
 	}
 
@@ -43,7 +43,7 @@ class KopiCafe extends CI_Controller {
 
 	public function bubuk_cafe()
 	{		
-		$data['stok_bubuk'] = $this->m_kopiCafe->m_stok('kopi');
+		$data['stok_bubuk'] = $this->m_kopi_cafe->m_stok('kopi');
 		$this->load->view('stok_bubuk',$data);
 	}
 
@@ -54,10 +54,10 @@ class KopiCafe extends CI_Controller {
 	{
 		$tgl_awal = $this->input->get('tgl_awal');
 		$tgl_akhir = $this->input->get('tgl_akhir');
-		$data['all'] = $this->m_kopiCafe->m_jual_beli_bubuk($tgl_awal,$tgl_akhir);		
+		$data['all'] = $this->m_kopi_cafe->m_jual_beli_bubuk($tgl_awal,$tgl_akhir);		
 		$data['tgl_awal'] = $tgl_awal;
 		$data['tgl_akhir'] = $tgl_akhir;
-		$data['stok_bubuk'] = $this->m_kopiCafe->m_stok('kopi');
+		$data['stok_bubuk'] = $this->m_kopi_cafe->m_stok('kopi');
 		$this->load->view('laporan_jual_beli_bubuk',$data);
 	}
 
@@ -72,10 +72,10 @@ class KopiCafe extends CI_Controller {
 		header("Expires: 0");	
 		$tgl_awal = $this->input->get('tgl_awal');
 		$tgl_akhir = $this->input->get('tgl_akhir');
-		$data['all'] = $this->m_kopiCafe->m_jual_beli_bubuk($tgl_awal,$tgl_akhir);		
+		$data['all'] = $this->m_kopi_cafe->m_jual_beli_bubuk($tgl_awal,$tgl_akhir);		
 		$data['tgl_awal'] = $tgl_awal;
 		$data['tgl_akhir'] = $tgl_akhir;
-		$data['stok_bubuk'] = $this->m_kopiCafe->m_stok('kopi');
+		$data['stok_bubuk'] = $this->m_kopi_cafe->m_stok('kopi');
 		$this->load->view('laporan_jual_beli_bubuk_xl',$data);
 
 	}
@@ -208,10 +208,10 @@ class KopiCafe extends CI_Controller {
 	{
 		$tgl_awal = $this->input->get('tgl_awal');
 		$tgl_akhir = $this->input->get('tgl_akhir');
-		$data['all'] = $this->m_kopiCafe->m_jual_beli($tgl_awal,$tgl_akhir);		
+		$data['all'] = $this->m_kopi_cafe->m_jual_beli($tgl_awal,$tgl_akhir);		
 		$data['tgl_awal'] = $tgl_awal;
 		$data['tgl_akhir'] = $tgl_akhir;
-		$data['stok'] = $this->m_kopiCafe->m_stok_kopi();	
+		$data['stok'] = $this->m_kopi_cafe->m_stok_kopi();	
 		$this->load->view('kopi_cafe_laporan',$data);
 	}
 
@@ -226,10 +226,10 @@ class KopiCafe extends CI_Controller {
 		header("Expires: 0");	
 		$tgl_awal = $this->input->get('tgl_awal');
 		$tgl_akhir = $this->input->get('tgl_akhir');
-		$data['all'] = $this->m_kopiCafe->m_jual_beli($tgl_awal,$tgl_akhir);		
+		$data['all'] = $this->m_kopi_cafe->m_jual_beli($tgl_awal,$tgl_akhir);		
 		$data['tgl_awal'] = $tgl_awal;
 		$data['tgl_akhir'] = $tgl_akhir;
-		$data['stok'] = $this->m_kopiCafe->m_stok_kopi();	
+		$data['stok'] = $this->m_kopi_cafe->m_stok_kopi();	
 		$this->load->view('laporan_jual_beli_xl',$data);
 	}
 
