@@ -34,7 +34,7 @@
   
   <div class="col-sm-6">
     <input type="text" name="nama" id="nama" value="" class="form-control" required placeholder="Nama">
-    <small><i>Nama Pembeli</i></small>
+    <small><i>Nama Member</i></small>
   </div>
   <div class="col-sm-6">
     <input type="text" name="hp" id="hp" value="" class="form-control" required placeholder="HP pembeli">
@@ -52,7 +52,7 @@
     <tr>
         <th>No</th>
         <th>Kopi</th>
-        <th>Harga</th>
+        <th>Harga Member</th>
         <th width="200px">Berat (gram)</th>        
         <th width="200px">qty </th>        
         
@@ -69,12 +69,12 @@
       <tr>
         <td width='10px'>$no</td>
         <td class='warning'>$kopi->nama_barang</td>
-        <td class='success text-right' id='harga'>".rupiah($kopi->harga_agen)."</td>        
+        <td class='success text-right' id='harga'>".rupiah($kopi->harga_member)."</td>        
         <td class='success text-right' id='berat'>".rupiah($kopi->berat)."</td>        
         <td class='danger' width='100px'>
           <input type='text' name='qty[]' class='form-control nomor' placeholder='Jumlah' required value='0' id='qty'>
           <input type='hidden'  value='$kopi->id' id='id' name='id_barang[]'>
-          <input type='hidden'  value='$kopi->harga_agen'  name='harga_agen[]'>
+          <input type='hidden'  value='$kopi->harga_member'  name='harga_agen[]'>
           <input type='hidden'  value='$kopi->berat'  name='berat[]'>
           
         </td>
@@ -99,7 +99,9 @@
             <select class="form-control" required="required" name="jenis_pembayaran">
               <option value="">--- pilih pembayaran ---</option>
               <option value="cash">Cash</option>
-              <option value="utang">Utang</option>
+              <option value="transfer_bank">Transfer</option>
+              <option value="grab">Grab</option>
+              <option value="ovo">ovo</option>
               
             </select>
           </div>
@@ -197,7 +199,7 @@ function formatRupiah(x) {
       
       var ser = $(this).serialize();
       $.ajax({
-              url: "<?php echo base_url()?>index.php/meja/simpan_kasir_agen",
+              url: "<?php echo base_url()?>index.php/meja/simpan_kasir_member",
               type: "POST",
               contentType: false,
               processData:false,
@@ -214,8 +216,8 @@ function formatRupiah(x) {
 
                 //bayar
                 //window.open("<?php echo base_url()?>index.php/gudang/struk_kasir_gudang/"+data);
+                //window.open("<?php echo base_url()?>index.php/meja/struk_kopi/"+data);
                 window.open("<?php echo base_url()?>index.php/meja/struk_kopi/"+data);
-
 
               },
               error: function(){

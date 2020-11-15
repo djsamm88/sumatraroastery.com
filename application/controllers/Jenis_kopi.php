@@ -39,6 +39,7 @@ class Jenis_kopi extends CI_Controller {
 		$serialize = $this->input->post();
 		$serialize['harga_beli'] = hanya_nomor($serialize['harga_beli']);
 		$serialize['harga_jual'] = hanya_nomor($serialize['harga_jual']);
+		$serialize['harga_jual_ke_cafe'] = hanya_nomor($serialize['harga_jual_ke_cafe']);
 
 		if($id=='')
 		{

@@ -31,6 +31,14 @@ class Meja extends CI_Controller {
 
 
 
+	public function kasir_member()
+	{
+		$data['data_kopi'] = $this->m_meja->m_all_kopi();	
+		$this->load->view('kasir_member',$data);
+	}
+
+
+
 
 	public function simpan_kasir_agen()
 	{
@@ -48,7 +56,7 @@ class Meja extends CI_Controller {
 				$trx['harga']	= hanya_nomor($data['harga_agen'][$i]);
 				$trx['nama']  	= $data['nama'];
 				$trx['hp']  	= $data['hp'];
-				$trx['keterangan']  = $data['keterangan']." - ".date('Y-m-d H:i:s');				
+				$trx['keterangan']  = "Kasir Agen -  ".$data['keterangan']." - ".date('Y-m-d H:i:s');				
 				$trx['kategori_trx']='keluar';
 
 				$this->db->set($trx);
@@ -59,9 +67,10 @@ class Meja extends CI_Controller {
 
 				$ser_trx = array(
 								"id_group"=>"19",							
-								"keterangan"=>"Qty: ".$data['qty'][$i] ." - Harga:  ".rupiah($data['harga_agen'][$i])."@ - kpd : ".$data['nama']." - ". $trx['keterangan'],
-								"jumlah"=>($trx['harga']),
-								"url_bukti"=>$trx['bukti']
+								"keterangan"	=>"[".$trx['jenis_pembayaran']."] - kpd : ".$data['nama']." - ". $trx['keterangan'],
+								"jumlah"		=>($trx['harga']*$data['qty'][$i]),
+								"url_bukti"=>$trx['bukti'],
+								"jenis_pembayaran"=>$trx['jenis_pembayaran']
 							);				
 				/* untuk id_referensi = id_group/id_table*/
 				$ser_trx['id_referensi'] = $id_trx;	
@@ -75,7 +84,7 @@ class Meja extends CI_Controller {
 					$ser_trx = array(
 									"id_group"=>"18",							
 									"keterangan"=>"Qty: ".$data['qty'][$i] ." - Harga:  ".rupiah($data['harga_agen'][$i])."@ - kpd : ".$data['nama']." - ". $trx['keterangan'],
-									"jumlah"=>($trx['harga']),
+									"jumlah" =>($trx['harga']*$data['qty'][$i]),
 									"url_bukti"=>$trx['bukti']
 								);				
 					/* untuk id_referensi = id_group/id_table*/
@@ -96,6 +105,64 @@ class Meja extends CI_Controller {
 		die("");
 
 	}
+
+
+
+
+
+	public function simpan_kasir_member()
+	{
+		$data = $this->input->post();
+		//var_dump($data);		
+		$trx['bukti'] 		= upload_file('bukti_pembayaran');
+		$trx['kode_trx']	= date('ymdhis')."_".$this->session->userdata('id_admin');
+		$trx['jenis_pembayaran'] = $data['jenis_pembayaran'];
+		for ($i=0; $i <count($data['id_barang']) ; $i++) { 
+			if(hanya_nomor($data['qty'][$i])>0)
+			{
+				$trx['berat'] = hanya_nomor($data['berat'][$i]);
+				$trx['qty'] = hanya_nomor($data['qty'][$i]);
+				$trx['id_barang'] = $data['id_barang'][$i];
+				$trx['harga']	= hanya_nomor($data['harga_agen'][$i]);
+				$trx['nama']  	= $data['nama'];
+				$trx['hp']  	= $data['hp'];
+				$trx['keterangan']  = "Kasir Member -  ".$data['keterangan']." - ".date('Y-m-d H:i:s');			
+				$trx['kategori_trx']='keluar';
+
+				$this->db->set($trx);
+				$this->db->insert('kopi_trx');
+				$id_trx = $this->db->insert_id();
+
+				/*********** insert ke transaksi **************/	
+
+				$ser_trx = array(
+								"id_group"		=>"20",							
+								"keterangan"	=>"[".$trx['jenis_pembayaran']."] - kpd : ".$data['nama']." - ". $trx['keterangan'],
+								"jumlah"		=>($trx['harga']*$data['qty'][$i]),
+								"url_bukti"		=>$trx['bukti'],
+								"jenis_pembayaran"=>$trx['jenis_pembayaran']
+							);				
+				/* untuk id_referensi = id_group/id_table*/
+				$ser_trx['id_referensi'] = $id_trx;	
+				$this->db->set($ser_trx);
+				$this->db->insert('tbl_transaksi');
+				/*********** insert ke transaksi **************/
+
+				
+			}
+				
+		}
+
+		echo $trx['kode_trx'];
+
+		
+
+
+		die("");
+
+	}
+
+
 
 
 
@@ -187,6 +254,8 @@ class Meja extends CI_Controller {
 		$data['all'] = $this->m_meja->all_trx($data['tgl_awal'],$data['tgl_akhir']);
 		$data['titipan'] = $this->m_meja->all_trx_titipan($data['tgl_awal'],$data['tgl_akhir']);
 		$data['roasting'] = $this->m_meja->all_trx_roasting($data['tgl_awal'],$data['tgl_akhir']);
+		$data['menu'] = $this->m_meja->all_trx_menu($data['tgl_awal'],$data['tgl_akhir']);
+		$data['kopi'] = $this->m_meja->all_trx_kopi($data['tgl_awal'],$data['tgl_akhir']);
 
 		$this->load->view('lap_penjualan',$data);
 	}
@@ -228,39 +297,47 @@ class Meja extends CI_Controller {
 		$serialize = $this->input->post();		
 		$serialize['group_trx'] = date('Ymdhis')."_".$serialize['id_meja'];
 		$serialize['url_bukti'] = $data['url_bukti'];
-		$group_trx = $this->m_meja->update_status($serialize);
+		
 
 		
 		$data['id_group']	=8;
 		$data['keterangan'] = "Pemayaran [".$serialize['jenis_pembayaran']."] id meja ".$serialize['id_meja']." pada tgl ".date('Y-m-d H:i:s');
 		$data['jumlah'] 	= $serialize['total'];
 		$data['id_referensi'] = $serialize['id_meja'];
-
+		$data['jenis_pembayaran'] = $serialize['jenis_pembayaran'];
 		$this->db->set($data);
 		$this->db->insert('tbl_transaksi');
 
 		
 
+		$group_trx = $serialize['group_trx'];
+		if($this->m_meja->update_status($serialize))
+		{
 
+			$q = $this->db->query("
+				SELECT id_barang,tgl_trx,group_trx,harga_pokok,url_bukti,jenis_pembayaran, SUM(qty) as qty
+					FROM `trx_meja` 
+					WHERE group_trx='$group_trx'
+					GROUP BY id_meja,id_barang,group_trx
 
-		$q = $this->db->query("SELECT * FROM trx_meja WHERE group_trx='$group_trx' AND berat>0");
+			 ");
 		
-		foreach ($q->result() as $key) {
-			$this->db->query("INSERT INTO kopi_trx 
-									SET 
-									id_barang='$key->id_barang',
-									kategori_trx='keluar', 
-									berat='$key->berat',
-									harga='$key->harga_pokok',
-									qty='$key->qty',
-									kode_trx='$key->group_trx',
-									bukti='$key->url_bukti',
-									jenis_pembayaran='$key->jenis_pembayaran'
+			foreach ($q->result() as $key) {
+				$this->db->query("INSERT INTO kopi_trx 
+										SET 
+										id_barang='$key->id_barang',
+										kategori_trx='keluar', 										
+										harga='$key->harga_pokok',
+										qty='$key->qty',
+										kode_trx='$key->group_trx',
+										bukti='$key->url_bukti',
+										jenis_pembayaran='$key->jenis_pembayaran',
+										keterangan='Kasir Cafe'
 
-							");
-
-
+								");
+			}	
 		}
+		
 
 		echo $serialize['group_trx'];
 	}
@@ -291,6 +368,14 @@ class Meja extends CI_Controller {
 
 	}
 
+	public function struk_sebelum($id_meja)
+	{
+
+		$trx['data'] = $this->m_meja->trx_sebelum_bayar($id_meja);
+		
+		 $html = $this->load->view('struk_sebelum.php',$trx);
+	}
+
 
 	public function struk_penjualan($group_trx)
 	{
@@ -306,6 +391,49 @@ class Meja extends CI_Controller {
 		$pdfFilePath = FCPATH."/downloads/$filename.pdf";
 		
 		 $html = $this->load->view('struk.php',$trx);
+    
+    	//echo json_encode($data);
+    	//$this->load->view('template/part/laporan_pdf.php',$data);
+    	
+    	/*
+		if (file_exists($pdfFilePath) == FALSE)
+		{
+			//ini_set('memory_limit','512M'); // boost the memory limit if it's low <img class="emoji" draggable="false" alt="" src="https://s.w.org/images/core/emoji/72x72/1f609.png">
+        	ini_set('memory_limit', '2048M');
+			//$html = $this->load->view('laporan_mpdf/pdf_report', $data, true); // render the view into HTML
+			$html = $this->load->view('slip_pembayaran.php',$data,true);
+			
+			$this->load->library('pdf_potrait'); 
+			$pdf = $this->pdf_potrait->load();
+			//$this->load->library('pdf');
+			//$pdf = $this->pdf->load();
+
+			$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date("YmdHis")."_".$this->session->userdata('id_admin')); // Add a footer for good measure <img class="emoji" draggable="false" alt="" src="https://s.w.org/images/core/emoji/72x72/1f609.png">
+			$pdf->WriteHTML($html); // write the HTML into the PDF
+			$pdf->Output($pdfFilePath, 'F'); // save to file because we can
+		}
+		 
+		redirect(base_url()."downloads/$filename.pdf","refresh");
+		*/
+		
+		
+	}
+
+
+	public function struk_kopi($group_trx)
+	{
+		
+		
+		
+		$trx['data'] = $this->m_meja->trx_by_group_kopi($group_trx);
+
+		//var_dump($staff_arr);
+		$filename = "slip_penjualan_".$this->router->fetch_class()."_".$group_trx;
+		
+		// As PDF creation takes a bit of memory, we're saving the created file in /downloads/reports/
+		$pdfFilePath = FCPATH."/downloads/$filename.pdf";
+		
+		 $html = $this->load->view('struk_kopi.php',$trx);
     
     	//echo json_encode($data);
     	//$this->load->view('template/part/laporan_pdf.php',$data);

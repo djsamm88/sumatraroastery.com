@@ -36,6 +36,7 @@
                 <th>nama_kopi</th>                
                 <th>Harga beli/Gram</th>                
                 <th>Harga jual/Gram</th>                
+                <th>Harga jual ke Kafe/Gram</th>                
               <th>Action</th>
               
         </tr>
@@ -61,6 +62,8 @@
                 <td>$x->nama_kopi</td>                          
                 <td>".rupiah($x->harga_beli)."</td>                          
                 <td>".rupiah($x->harga_jual)."</td>                          
+                <td>".rupiah($x->harga_jual_ke_cafe)."</td>                          
+
                 <td>
                   $btn
                 </td>
@@ -123,6 +126,14 @@
             <div style="clear:both"></div>
             <br>
 
+
+            <div class="col-sm-4 judul">harga ke Cafe/gram</div>
+            <div class="col-sm-8">
+              <input class="form-control nomor" name="harga_jual_ke_cafe" id="harga_jual_ke_cafe" required>
+            </div>
+            <div style="clear:both"></div>
+            <br>
+
             <div id="t4_info_form"></div>
             <button type="submit" class="btn btn-primary"> Simpan </button>
           </form>
@@ -172,6 +183,9 @@ function edit_admin(id)
     $("#nama_kopi").val(e[0].nama_kopi);    
     $("#harga_beli").val(e[0].harga_beli);    
     $("#harga_jual").val(e[0].harga_jual);    
+    $("#harga_jual_ke_cafe").val(e[0].harga_jual_ke_cafe);    
+
+    
     
   })
   $("#myModal").modal('show');

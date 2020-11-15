@@ -105,6 +105,52 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 
 
 
+
+
+	public function all_trx_menu($awal,$akhir)
+	{
+		
+		
+		$q = $this->db->query("
+
+							SELECT a.id_barang,a.harga_pokok,b.nama_barang,b.kategori, 
+									SUM(qty) AS qty, 
+									SUM(a.qty*a.harga_pokok) AS total 
+								FROM `trx_meja` a 
+								LEFT JOIN tbl_barang b ON a.id_barang=b.id 
+								WHERE b.kategori='menu' AND (tgl_trx BETWEEN '$awal' AND '$akhir') 
+								GROUP BY id_barang
+							");
+
+
+		return $q->result();
+	}
+
+
+
+
+
+	public function all_trx_kopi($awal,$akhir)
+	{
+		
+		
+		$q = $this->db->query("
+
+							SELECT a.id_barang,a.harga_pokok,b.nama_barang,b.kategori, 
+									SUM(qty) AS qty, 
+									SUM(a.qty*a.harga_pokok) AS total 
+								FROM `trx_meja` a 
+								LEFT JOIN tbl_barang b ON a.id_barang=b.id 
+								WHERE b.kategori='kopi' AND (tgl_trx BETWEEN '$awal' AND '$akhir') 
+								GROUP BY id_barang
+							");
+
+
+		return $q->result();
+	}
+
+
+
 	public function all_trx_roasting($awal,$akhir)
 	{
 		
@@ -158,7 +204,47 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 							");
 		return $q->result();
 	}
+
+
+
+
+	public function trx_by_group_kopi($group_trx)
+	{
+		$q = $this->db->query("
+
+							SELECT a.*,b.nama_barang,b.kategori
+
+								FROM `kopi_trx` a
+								LEFT JOIN tbl_barang b ON a.id_barang=b.id
+								WHERE kode_trx='$group_trx'
+
+								 
+								
+								ORDER BY tgl_trx ASC
+							
+
+							");
+		return $q->result();
+	}
 	
+
+	public function trx_sebelum_bayar($id_meja)
+	{
+		$q = $this->db->query("
+
+							SELECT a.*,b.nama_barang,b.berat,c.nama_admin 
+							FROM 
+							(
+								SELECT id,id_meja,id_barang,id_admin,tgl_trx,group_trx,harga_pokok, SUM(qty) AS qty, status FROM `trx_meja` WHERE id_meja='$id_meja' AND status='0' GROUP BY id_barang
+							)a
+							LEFT JOIN tbl_barang b ON a.id_barang=b.id
+							LEFT JOIN tbl_admin c ON a.id_admin=c.id_admin
+
+							");
+		return $q->result();
+	}
+
+
 
 
 	public function m_by_id($id_meja)
@@ -203,10 +289,13 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 
 		$this->db->query("UPDATE trx_meja SET 
 							status='1',
+							kategori_trx='keluar',
 							group_trx='$group_trx',
 							jenis_pembayaran='$jenis_pembayaran', 
 							url_bukti='$url_bukti' 
 						WHERE id_meja='$id_meja' AND status=0");
+
+
 		return $group_trx;
 
 

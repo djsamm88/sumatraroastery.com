@@ -126,6 +126,66 @@ class Laporan_keuangan extends CI_Controller {
 
 
 
+	public function laporan_jurnal_harian()
+	{
+		$tgl_awal = $this->input->get('tgl_awal');
+		$tgl_akhir = $this->input->get('tgl_akhir');
+		$data['all'] = $this->m_laporan_keuangan->m_jurnal($tgl_awal,$tgl_akhir);
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
+		$this->load->view('table_jurnal_harian',$data);
+	}
+
+
+
+	public function laporan_jurnal_harian_pdf()
+	{
+		$tgl_awal = $this->input->get('tgl_awal');
+		$tgl_akhir = $this->input->get('tgl_akhir');
+		$data['all'] = $this->m_laporan_keuangan->m_jurnal($tgl_awal,$tgl_akhir);
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
+		//$this->load->view('table_jurnal_pdf',$data);
+
+
+
+		//var_dump($staff_arr);
+		$filename = "jurnal_".$this->router->fetch_class()."_".date('d_m_y_h_i_s');
+		
+		// As PDF creation takes a bit of memory, we're saving the created file in /downloads/reports/
+		$pdfFilePath = FCPATH."/downloads/$filename.pdf";
+		
+		 //$html = $this->load->view('slip_pembayaran.php',$data);
+    
+    	//echo json_encode($data);
+    	//$this->load->view('template/part/laporan_pdf.php',$data);
+    	
+    	
+		if (file_exists($pdfFilePath) == FALSE)
+		{
+			//ini_set('memory_limit','512M'); // boost the memory limit if it's low <img class="emoji" draggable="false" alt="" src="https://s.w.org/images/core/emoji/72x72/1f609.png">
+        	ini_set('memory_limit', '2048M');
+			//$html = $this->load->view('laporan_mpdf/pdf_report', $data, true); // render the view into HTML
+			$html = $this->load->view('table_jurnal_harian_pdf.php',$data,true);
+			
+			//$this->load->library('pdf_potrait'); 
+			//$pdf = $this->pdf_potrait->load();
+			$this->load->library('pdf');
+			$pdf = $this->pdf->load();
+
+			$pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date("YmdHis")."_".$this->session->userdata('id_admin')); // Add a footer for good measure <img class="emoji" draggable="false" alt="" src="https://s.w.org/images/core/emoji/72x72/1f609.png">
+			$pdf->WriteHTML($html); // write the HTML into the PDF
+			$pdf->Output($pdfFilePath, 'F'); // save to file because we can
+		}
+		 
+		redirect(base_url()."downloads/$filename.pdf","refresh");
+		
+
+	}
+
+
+
+
 	public function laporan_jurnal_pelanggan($id_pelanggan)
 	{
 		$data['all'] = $this->m_laporan_keuangan->m_jurnal_pelanggan($id_pelanggan);		

@@ -97,6 +97,126 @@
 
 
 
+Menu:
+<div class="table-responsive">              
+<table id="tbl_datanya_barang" class="table  table-striped table-bordered"  cellspacing="0" width="100%">
+      <thead>
+        <tr>
+              
+              <th>No</th>                    
+              <th>Id Barang</th>                     
+              <th>Nama Barang</th>                                               
+              <th>Terjual</th>                                                                             
+              <th>Harga @</th>                     
+              <th>SubTotal</th>                     
+              
+              
+              
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        
+        $non = 0;
+        $tot_menu = 0;
+        foreach($menu as $xxxx)
+        {
+          
+          $non++;
+          $tot_menu+=$xxxx->total;
+            
+            echo (" 
+              
+              <tr>
+                <td>$non</td>                
+                <td>".($xxxx->id_barang)." </td>                
+                <td>".($xxxx->nama_barang)." </td>                
+                <td>".rupiah($xxxx->qty)." </td>                
+                <td>".rupiah($xxxx->harga_pokok)." </td>                
+                <td align=right>".rupiah($xxxx->total)."</td>                                
+                
+              </tr>
+          ");
+          
+        }
+        
+        
+        ?>
+      </tbody>
+       <tfoot>
+             <tr>
+                <th colspan='5' style='text-align:right'><b>Total</b></th>
+                <th style='text-align:right'><b>Rp.<?php echo rupiah($tot_menu)?></b></th>
+             </tr>
+           </tfoot>
+  </table>
+</div>
+
+
+
+
+
+
+
+Bubuk kopi:
+<div class="table-responsive">              
+<table id="tbl_datanya_barang" class="table  table-striped table-bordered"  cellspacing="0" width="100%">
+      <thead>
+        <tr>
+              
+              <th>No</th>                    
+              <th>Id Barang</th>                     
+              <th>Nama Barang</th>                                               
+              <th>Terjual</th>                                                                             
+              <th>Harga @</th>                     
+              <th>SubTotal</th>                     
+              
+              
+              
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        
+        $non = 0;
+        $tot_kopi = 0;
+        foreach($kopi as $yyy)
+        {
+          
+          $non++;
+          $tot_kopi+=$yyy->total;
+            
+            echo (" 
+              
+              <tr>
+                <td>$non</td>                
+                <td>".($yyy->id_barang)." </td>                
+                <td>".($yyy->nama_barang)." </td>                
+                <td>".rupiah($yyy->qty)." </td>                
+                <td>".rupiah($yyy->harga_pokok)." </td>                
+                <td align=right>".rupiah($yyy->total)."</td>                                
+                
+              </tr>
+          ");
+          
+        }
+        
+        
+        ?>
+      </tbody>
+       <tfoot>
+             <tr>
+                <th colspan='5' style='text-align:right'><b>Total</b></th>
+                <th style='text-align:right'><b>Rp.<?php echo rupiah($tot_kopi)?></b></th>
+             </tr>
+           </tfoot>
+  </table>
+</div>
+
+
+
+
+
 Barang Titipan:
 <div class="table-responsive">              
 <table id="tbl_datanya_barang" class="table  table-striped table-bordered"  cellspacing="0" width="100%">

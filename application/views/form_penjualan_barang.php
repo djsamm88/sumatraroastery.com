@@ -37,11 +37,14 @@
                   $tutup = "<button class='btn btn-primary btn-block'onclick='detail_pesanan($meja->id_meja)' > Bayar</button>";
                   $tambah = "<button class='btn btn-primary btn-block' onclick='tambah_menu($meja->id_meja)'> Tambah menu</button>";
                   $pindah = "<button class='btn btn-primary btn-block' onclick='pindah_meja($meja->id_meja)'> Pindah</button>";
+
+                  $cetak = "<button class='btn btn-primary btn-block' onclick='cetak($meja->id_meja)'> Cetak</button>";
                   }else{
                     $alert='alert-info';
                     $tutup = "";
                     $tambah = "<button class='btn btn-primary btn-block' onclick='tambah_menu($meja->id_meja)'> Tambah menu</button>";
                     $pindah = "";
+                    $cetak = "";
                   }
                   
 
@@ -50,7 +53,7 @@
                   echo "
 
                     <div class='col-sm-4'>
-                      <div class='alert $alert text-center' style='min-height:200px;margin:5px'>
+                      <div class='alert $alert text-center' style='min-height:230px;margin:5px'>
                         <b>$meja->nama_meja [$meja->id_meja]</b>
                           
                           <br>
@@ -59,6 +62,8 @@
                           $tutup
                           
                           $pindah
+
+                          $cetak
 
                           <div style='clear:both'></div><br>
                       </div>  
@@ -116,6 +121,12 @@
 
 
 <script type="text/javascript">
+
+  function cetak(id_meja)
+  {
+    window.open("<?php echo base_url()?>index.php/meja/struk_sebelum/"+id_meja);
+  }
+
   function tambah_menu(id)
   {
     console.log(id);

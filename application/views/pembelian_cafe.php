@@ -15,7 +15,7 @@
 <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Trx Penjualan Kopi</h3>
+          <h3 class="box-title">Trx Pembelian Kopi</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -33,11 +33,12 @@
   <div class="row">
   
   <div class="col-sm-6">
-    <input type="text" name="nama" id="nama" value="" class="form-control" required placeholder="Nama">
+    <input type="text" name="nama" id="nama" value="Sumatera Cafe" class="form-control" required readonly="">
+    
     <small><i>Nama Pembeli</i></small>
   </div>
   <div class="col-sm-6">
-    <input type="text" name="hp" id="hp" value="" class="form-control" required placeholder="HP pembeli">
+    <input type="text" name="hp" id="hp" value="xxx" class="form-control" required readonly ="">
     <small><i>HP Pembeli</i></small>
   </div>
   
@@ -54,7 +55,6 @@
         <th>Kopi</th>
         <th>Harga</th>
         <th width="200px">Berat (gram)</th>        
-        <th width="200px">qty </th>        
         
     </tr>
   </thead>
@@ -68,14 +68,12 @@
     echo "
       <tr>
         <td width='10px'>$no</td>
-        <td class='warning'>$kopi->nama_barang</td>
-        <td class='success text-right' id='harga'>".rupiah($kopi->harga_agen)."</td>        
-        <td class='success text-right' id='berat'>".rupiah($kopi->berat)."</td>        
+        <td class='warning'>$kopi->nama_kopi</td>
+        <td class='success text-right' id='harga'>".rupiah($kopi->harga_jual_ke_cafe)."</td>        
         <td class='danger' width='100px'>
-          <input type='text' name='qty[]' class='form-control nomor' placeholder='Jumlah' required value='0' id='qty'>
-          <input type='hidden'  value='$kopi->id' id='id' name='id_barang[]'>
-          <input type='hidden'  value='$kopi->harga_agen'  name='harga_agen[]'>
-          <input type='hidden'  value='$kopi->berat'  name='berat[]'>
+          <input type='text' name='berat[]' class='form-control nomor' required placeholder='Jumlah' value='0' id='berat'>
+          <input type='hidden'  value='$kopi->id' id='id' name='id_kopi[]'>
+          <input type='hidden'  value='$kopi->harga_beli' id='harga_beli' name='harga_beli[]'>
           
         </td>
         
@@ -86,14 +84,13 @@
 </tbody>
 <tfoot>
   <tr>
-    <td colspan="2" class="text-right">Total:</td>
+    <td colspan="2">Total:</td>
     <td id="total" class="text-right">0</td>
     <td id="total_berat" class="text-right">0</td>
-    <td id="total_qty" class="text-right">0</td>
   </tr>
 </tfoot>
 </table>
-          
+          <!--
           <div class="col-sm-4" style="text-align:right"> Pembayaran</div>
             <div class="col-sm-8">
             <select class="form-control" required="required" name="jenis_pembayaran">
@@ -105,6 +102,7 @@
           </div>
           <br>
           <br>
+          -->
 
 
 
@@ -140,45 +138,31 @@
 
 <script type="text/javascript">
 
-
-$("#tbl_trx tbody tr td #qty").on("keydown keyup mousedown mouseup select contextmenu drop",function(){
+$("#tbl_trx tbody tr td #berat").on("keydown keyup mousedown mouseup select contextmenu drop",function(){
   total();
 })
 
 function total()
 {
   var total=0;
-  var total_qty=0;
   var total_berat=0;
   $("#tbl_trx tbody tr").each(function(){
      var harga=0;
-     var berat=0;
-     var qty=0;  
+     var berat=0;  
      var subtotal=0;
-     var subtotal_berat=0;
      harga= parseInt(buang_titik($(this).find("td#harga").text())) || 0;
-     berat= parseInt(buang_titik($(this).find("td#berat").text())) || 0;
-     qty= parseInt(buang_titik($(this).find("td #qty").val())) || 0;
-     subtotal=qty*harga;
+     berat= parseInt(buang_titik($(this).find("td #berat").val())) || 0;
+     subtotal=berat*harga;
      total+=subtotal;
-     total_qty+=qty;
-     total_berat+=(qty*berat);
+     total_berat+=berat;
 
   })
-  console.log(total_berat);
+  console.log(total);
   $("#tbl_trx tfoot tr td#total").html(formatRupiah(total));
-  $("#tbl_trx tfoot tr td#total_qty").html(formatRupiah(total_qty));
   $("#tbl_trx tfoot tr td#total_berat").html(formatRupiah(total_berat));
 
-  if(total>50000000)
-  {
-    $("#simpan").hide();
-    alert("Agen tidak bisa lebih besar dari 50jt ");
-
-  }else{
-    $("#simpan").show();
-  }
 }
+
 
 hanya_nomor(".nomor");
 function buang_titik(mystring)
@@ -190,14 +174,14 @@ function formatRupiah(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-
+  
   $("#penjualan_barang").on("submit",function(){
     if(confirm("Anda yakin? Pastikan tidak ada kesalahan."))
     {
       
       var ser = $(this).serialize();
       $.ajax({
-              url: "<?php echo base_url()?>index.php/meja/simpan_kasir_agen",
+              url: "<?php echo base_url()?>index.php/kopiCafe/simpan_kasir_beli",
               type: "POST",
               contentType: false,
               processData:false,
@@ -206,16 +190,15 @@ function formatRupiah(x) {
                   //alert("sedang uploading...");
               },
               success: function(data){
-                $("#t4_info_form").html("<div class='alert alert-success'>Berhasil..["+data+"]</div>").fadeIn().delay(10000).fadeOut();
+                $("#t4_info_form").html("<div class='alert alert-success'>Berhasil..["+data+"]</div>").fadeIn().delay(3000).fadeOut();
                   
                 
-                //$("#simpan").hide();
+                $("#simpan").hide();
                 
 
                 //bayar
-                //window.open("<?php echo base_url()?>index.php/gudang/struk_kasir_gudang/"+data);
-                window.open("<?php echo base_url()?>index.php/meja/struk_kopi/"+data);
-
+                //window.open("<?php echo base_url()?>index.php/gudang/struk/"+data);
+                
 
               },
               error: function(){

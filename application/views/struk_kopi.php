@@ -34,16 +34,7 @@ font-size:10px;
 </tr>
 <tr>	
 	<td>No.TRX</td>
-	<td>: <?php echo $data[0]->group_trx?></td>	
-</tr>
-<tr>
-	<td>Kasir</td>
-	<td>: <?php echo $data[0]->nama_admin?></td>	
-</tr>
-
-<tr>
-	<td>Id Meja</td>
-	<td>: <?php echo $data[0]->id_meja?></td>	
+	<td>: <?php echo $data[0]->kode_trx?></td>	
 </tr>
 
 </table>
@@ -62,14 +53,14 @@ font-size:10px;
 
 	foreach ($data as $key ) 
 	{
-		$tot+=($key->harga_pokok*$key->qty);
+		$tot+=($key->harga*$key->qty);
 		echo "
 				<tr>
 					<td>$key->id</td>
 					<td>$key->nama_barang [$key->berat]</td>					
-					<td align=right> ".rupiah($key->harga_pokok)."</td>
+					<td align=right> ".rupiah($key->harga)."</td>
 					<td align=right>$key->qty</td>
-					<td align=right> ".rupiah($key->harga_pokok*$key->qty)."</td>
+					<td align=right> ".rupiah($key->harga*$key->qty)."</td>
 					
 				</tr>
 		";
@@ -109,7 +100,6 @@ font-size:10px;
 </center>
 
 <hr style="border-top: dotted 1px;" />
-
 <table>
 <tr>
 	<td>Tanggal</td>
@@ -117,16 +107,7 @@ font-size:10px;
 </tr>
 <tr>	
 	<td>No.TRX</td>
-	<td>: <?php echo $data[0]->group_trx?></td>	
-</tr>
-<tr>
-	<td>Kasir</td>
-	<td>: <?php echo $data[0]->nama_admin?></td>	
-</tr>
-
-<tr>
-	<td>Id Meja</td>
-	<td>: <?php echo $data[0]->id_meja?></td>	
+	<td>: <?php echo $data[0]->kode_trx?></td>	
 </tr>
 
 </table>
@@ -145,14 +126,14 @@ font-size:10px;
 
 	foreach ($data as $key ) 
 	{
-		$tot+=($key->harga_pokok*$key->qty);
+		$tot+=($key->harga*$key->qty);
 		echo "
 				<tr>
 					<td>$key->id</td>
 					<td>$key->nama_barang [$key->berat]</td>					
-					<td align=right> ".rupiah($key->harga_pokok)."</td>
+					<td align=right> ".rupiah($key->harga)."</td>
 					<td align=right>$key->qty</td>
-					<td align=right> ".rupiah($key->harga_pokok*$key->qty)."</td>
+					<td align=right> ".rupiah($key->harga*$key->qty)."</td>
 					
 				</tr>
 		";

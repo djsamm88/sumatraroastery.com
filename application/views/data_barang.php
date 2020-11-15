@@ -41,6 +41,7 @@
               <th width="10px">Id Barang</th>           
               <th>Barang</th>                     
               <th>Harga</th>                                   
+              <th>Harga Member</th>                                   
               <th>Harga Agen</th>                                   
                    
               <th>Kategori</th>                                   
@@ -71,6 +72,7 @@
                 <td>$x->id</td>
                 <td>$x->nama_barang</td>                
                 <td>".rupiah($x->harga_pokok)."</td>      
+                <td>".rupiah($x->harga_member)."</td>      
                 <td>".rupiah($x->harga_agen)."</td>      
                 <td>$x->kategori</td>                                                                        
                 <td>$x->berat</td>                           
@@ -126,6 +128,11 @@
         <div class="col-sm-4">Harga</div>
             <div class="col-sm-8"><input type="text" name="harga_pokok" id="harga_pokok" required="required" class="form-control nomor" placeholder="harga jual" ></div>
             <div style="clear: both;"></div><br>
+
+            <div class="col-sm-4">Harga Member</div>
+            <div class="col-sm-8"><input type="text" name="harga_member" id="harga_member" required="required" class="form-control nomor" placeholder="harga jual Member" ></div>
+            <div style="clear: both;"></div><br>
+        
 
             <div class="col-sm-4">Harga Agen</div>
             <div class="col-sm-8"><input type="text" name="harga_agen" id="harga_agen" required="required" class="form-control nomor" placeholder="harga jual agen" ></div>
@@ -191,6 +198,8 @@ function edit(id)
     
     $("#harga_pokok").val(e[0].harga_pokok);
     $("#harga_agen").val(e[0].harga_agen);
+    $("#harga_member").val(e[0].harga_member);
+    
     $("#kategori").val(e[0].kategori);
     $("#berat").val(e[0].berat);
     $("#gambar").val(e[0].gambar);

@@ -279,10 +279,17 @@
 
            <li>
             <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/penjualan/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+2 days'));?>','Laporan Penjualan');return false;">
-              <i class="fa fa-link"></i> <span>Penjualan</span>
+              <i class="fa fa-link"></i> <span>Penjualan Kasir</span>
             </a>
           </li>
 
+
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/kasir_member',' Kasir Member');return false;">
+            <i class="fa fa-shopping-cart"></i> <span>Member</span>
+          </a>
+        </li>
 
 
 
@@ -307,10 +314,73 @@
 
             
              <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan/laporan_jurnal/?tgl_awal=<?php echo date('Y-m-d')?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Harian');return false;">
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan/laporan_jurnal_harian/?tgl_awal=<?php echo date('Y-m-d')?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Harian');return false;">
                 <i class="fa fa-link"></i> <span>Laporan Harian</span>
               </a>
             </li>
+
+
+
+
+        <li class="treeview">
+          
+          <a href="#"><i class="fa fa-retweet"></i> <span>Kopi</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+
+          <ul class="treeview-menu">
+
+            
+
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/KopiCafe/pembelian_cafe',' Masuk');return false;">
+            <i class="fa fa-shopping-cart"></i> <span>Masuk</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/KopiCafe/roasting_cafe',' Kasir Olah');return false;">
+            <i class="fa fa-shopping-cart"></i> <span>Roasting</span>
+          </a>
+        </li>
+
+
+
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/KopiCafe/laporan_jual_beli/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Stok');return false;">
+            <i class="fa fa-link"></i> <span>Laporan Biji</span>
+          </a>
+        </li>
+
+
+
+         <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/KopiCafe/bubuk_cafe',' Bubuk Masuk');return false;">
+            <i class="fa fa-shopping-cart"></i> <span>Bubuk</span>
+          </a>
+        </li>
+
+
+
+        <li>
+          <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/KopiCafe/laporan_jual_beli_bubuk/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Stok Bubuk');return false;">
+            <i class="fa fa-link"></i> <span>Laporan Bubuk</span>
+          </a>
+        </li>
+
+
+
+
+
+        
+
+        </ul>
+      </li>
+        
 
 <hr>
 

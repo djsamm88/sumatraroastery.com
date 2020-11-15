@@ -14,7 +14,6 @@ font-size:10px;
 </style>
 
 <body onload='window.print();'>
-
 <center>
 	<?php //echo config_item('app_name')?>
 	<?php echo config_item('app_client1')?>
@@ -32,10 +31,7 @@ font-size:10px;
 	<td>Tanggal</td>
 	<td>: <?php echo $data[0]->tgl_trx?></td>	
 </tr>
-<tr>	
-	<td>No.TRX</td>
-	<td>: <?php echo $data[0]->group_trx?></td>	
-</tr>
+
 <tr>
 	<td>Kasir</td>
 	<td>: <?php echo $data[0]->nama_admin?></td>	
@@ -91,13 +87,30 @@ font-size:10px;
 <hr style="border-top: dotted 1px;" />
 
 <center>
-	Selamat Belanja!
+	Belum lunas!
 </center>
+
+
 
 <br>
 <hr style="border-top: dotted 1px;" />
+<br>
+<title><?php echo config_item('app_name')?></title>
+<style>
+html,body{
+	margin:0px;
+	padding:0px;
+}
+body,table{
+	    text-transform: uppercase;
+		font-size:8px;
+		font-family:verdana;
+}
 
+font-size:10px;
+</style>
 
+<body onload='window.print();'>
 <center>
 	<?php //echo config_item('app_name')?>
 	<?php echo config_item('app_client1')?>
@@ -115,10 +128,7 @@ font-size:10px;
 	<td>Tanggal</td>
 	<td>: <?php echo $data[0]->tgl_trx?></td>	
 </tr>
-<tr>	
-	<td>No.TRX</td>
-	<td>: <?php echo $data[0]->group_trx?></td>	
-</tr>
+
 <tr>
 	<td>Kasir</td>
 	<td>: <?php echo $data[0]->nama_admin?></td>	
@@ -174,8 +184,16 @@ font-size:10px;
 <hr style="border-top: dotted 1px;" />
 
 <center>
-	Selamat Belanja!
+	Belum lunas!
 </center>
+</body>
+
+<script type="text/javascript">
+	setTimeout(function(){window.close();},100);
+</script>
+
+
+
 
 
 </body>
