@@ -215,6 +215,7 @@
         -->
 
 
+        <!--
 
         <li class="treeview">
           
@@ -246,6 +247,7 @@
                 <i class="fa fa-link"></i> <span>Arus Kas</span>
               </a>
             </li>
+          -->
 
 
             <!--
@@ -258,9 +260,11 @@
 
 
 
-                        
+          <!--              
           </ul>
         </li>
+          -->
+
 
         
 
@@ -278,7 +282,7 @@
 
 
            <li>
-            <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/penjualan/?tgl_awal=<?php echo date('Y-m-').'01'?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+2 days'));?>','Laporan Penjualan');return false;">
+            <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/meja/penjualan/?tgl_awal=<?php echo date('Y-m-d')?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+2 days'));?>','Laporan Penjualan');return false;">
               <i class="fa fa-link"></i> <span>Penjualan Kasir</span>
             </a>
           </li>
@@ -314,8 +318,8 @@
 
             
              <li>
-              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan/laporan_jurnal_harian/?tgl_awal=<?php echo date('Y-m-d')?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+1 days'));?>','Laporan Harian');return false;">
-                <i class="fa fa-link"></i> <span>Laporan Harian</span>
+              <a href="#" onclick="eksekusi_controller('<?php echo base_url()?>index.php/laporan_keuangan/laporan_jurnal_harian/?tgl_awal=<?php echo date('Y-m-d')?>&tgl_akhir=<?php echo date('Y-m-d',strtotime('+2 days'));?>','Laporan Harian');return false;">
+                <i class="fa fa-link"></i> <span>Laporan Keuangan</span>
               </a>
             </li>
 

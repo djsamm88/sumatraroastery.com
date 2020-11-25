@@ -36,6 +36,7 @@
                             <th width="50px">NO.</th>   
                             <th>Id</th>
                             <th>Nama Pengeluaran</th>
+                            <th>Jenis</th>
                             <th>Tgl</th>
 
                             <th>Action</th>                     
@@ -60,6 +61,7 @@
                              
                               <td>$x->id</td>
                               <td>$x->nama_pengeluaran</td>
+                              <td>$x->jenis</td>
                               <td>$x->tgl_update</td>
                             
                               <td>
@@ -110,6 +112,18 @@
             <div style="clear:both"></div><br>
 
 
+
+            
+            <div class="col-sm-4" style="text-align:right">Jenis</div>
+            <div class="col-sm-8">
+              <select class="form-control" placeholder="jenis" name="jenis" required id="jenis" >
+                <option value="cafe">Cafe</option>
+                <option value="bubuk">Bubuk</option>
+              </select>
+            </div>
+            <div style="clear:both"></div><br>
+
+
             <div id="t4_info_form"></div>
             <button type="submit" class="btn btn-primary"> Simpan </button>
           </form>
@@ -143,6 +157,7 @@ function edit(id)
     $("#id").val(e[0].id);
     //$("#nomor_urut").val(e[0].nomor_urut);
     $("#nama_pengeluaran").val(e[0].nama_pengeluaran);
+    $("#jenis").val(e[0].jenis);
     
   })
   $("#myModal").modal('show');

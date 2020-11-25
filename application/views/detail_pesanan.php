@@ -48,12 +48,15 @@
   <form id="form_pembayaran" enctype="multipart/form-data">
     <input type="hidden" id="total" class="form-control text-right" name="total" value="<?php echo ($total)?>">
     <input type="hidden" name="id_meja" value="<?php echo $id?>">
+    
+    <input type="text" id="harga_ekspedisi" class="form-control text-right nomor" name="harga_ekspedisi" value="" placeholder="Ekspedisi">
+
     <select class="form-control" required="required" name="jenis_pembayaran">
       <option value="">--- pilih pembayaran ---</option>
       <option value="cash">Cash</option>
-      <option value="ovo">Ovo</option>
-      <option value="transfer_bank">Transfer Bank</option>
-      <option value="grab">Grab</option>
+      <option value="ovo">Ovo/BCA</option>
+      <option value="transfer_bank">Transfer BNI</option>
+      <option value="edc">EDC BNI</option>
       
     </select>
     <input type="file" class="form-control" name="bukti_pembayaran" id="bukti_pembayaran">
@@ -63,7 +66,7 @@
 </div>
 </div>
 <script type="text/javascript">
-
+hanya_nomor(".nomor");
 $("#form_pembayaran").on("submit",function(){
    if(confirm("Aksi ini akan mempengaruhi KAS. Anda yakin?"))
    {

@@ -35,7 +35,7 @@
                 
                 <?php 
                   foreach ($all as $key) {
-                    echo "<option value='$key->nama_pengeluaran'>$key->nama_pengeluaran</option>";
+                    echo "<option value='$key->nama_pengeluaran | $key->jenis'>$key->nama_pengeluaran | $key->jenis</option>";
                   }
                 ?>
               </select>

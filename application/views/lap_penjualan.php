@@ -52,6 +52,7 @@
               <th>Kasir</th>                     
               <th>Tanggal</th>                                               
               <th>Kode Trx.</th>                                                                             
+              <th>Ekspedisi</th>                     
               <th>Sub Total</th>                     
               <th>Struk</th>                     
               <th>Bukti Bayar</th>                     
@@ -63,9 +64,11 @@
         <?php
         $total=0;         
         $no = 0;
+        $eks = 0;
         foreach($all as $x)
         {
           $total += $x->total;
+          $eks += $x->harga_ekspedisi;
           $no++;
             
             echo (" 
@@ -74,7 +77,8 @@
                 <td>$no</td>                
                 <td>".($x->nama_admin)." </td>
                 <td>".($x->tgl_trx)."</td>
-                <td>$x->group_trx</td>                                
+                <td>$x->group_trx</td>            
+                <td align=right>".rupiah($x->harga_ekspedisi)."</td>                                
                 <td align=right>".rupiah($x->total)."</td>                                
                 <td><a href='".base_url()."index.php/meja/struk_penjualan/".$x->group_trx."' target='blank'>Print</a></td>  
                 <td><a href='".base_url()."uploads/".$x->url_bukti."' target='blank'>Bukti</a></td>                                
@@ -89,6 +93,7 @@
        <tfoot>
              <tr>
                 <th colspan='4' style='text-align:right'><b>Total</b></th>
+                <th style='text-align:right'><b>Rp.<?php echo rupiah($eks)?></b></th>
                 <th style='text-align:right'><b>Rp.<?php echo rupiah($total)?></b></th>
              </tr>
            </tfoot>

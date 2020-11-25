@@ -138,6 +138,29 @@ class Laporan_keuangan extends CI_Controller {
 
 
 
+	public function laporan_jurnal_harian_xl()
+	{
+		$tgl_awal = $this->input->get('tgl_awal');
+		$tgl_akhir = $this->input->get('tgl_akhir');
+		
+		$file="jurnal_".$this->router->fetch_class()."_".date('d_m_y_h_i_s').".xls";
+		header("Content-type: application/octet-stream");
+		header("Content-Disposition: attachment; filename=$file");
+		header("Pragma: no-cache");
+		header("Expires: 0");	
+		$tgl_awal = $this->input->get('tgl_awal');
+		$tgl_akhir = $this->input->get('tgl_akhir');
+		$data['all'] = $this->m_laporan_keuangan->m_jurnal($tgl_awal,$tgl_akhir);	
+		$data['tgl_awal'] = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;		
+		$this->load->view('table_jurnal_harian_pdf',$data);
+		
+
+	}
+
+
+
+
 	public function laporan_jurnal_harian_pdf()
 	{
 		$tgl_awal = $this->input->get('tgl_awal');

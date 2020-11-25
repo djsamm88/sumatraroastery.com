@@ -51,6 +51,7 @@
               <th>No</th>                    
               <th>Tanggal</th>                     
               <th>Pengeluaran</th>                                                 
+              <th>Jenis</th>                                                 
               <th>Keterangan</th>                                                 
               <th>Bukti</th>                                                 
               <th>Jumlah</th>                     
@@ -71,6 +72,7 @@
                 <td>$no</td>                
                 <td>".tglindo($x->tgl_update)."</td>
                 <td>$x->nama_pengeluaran</td>                                
+                <td>$x->jenis</td>                                
                 <td>$x->keterangan</td>          
                 <td><a href='".base_url()."uploads/$x->bukti_pembayaran' target='blank'>$x->bukti_pembayaran</td>                                  
                 <td style='text-align:right'>".rupiah($x->jumlah)."</td>                                

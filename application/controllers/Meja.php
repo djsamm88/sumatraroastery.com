@@ -70,6 +70,7 @@ class Meja extends CI_Controller {
 								"keterangan"	=>"[".$trx['jenis_pembayaran']."] - kpd : ".$data['nama']." - ". $trx['keterangan'],
 								"jumlah"		=>($trx['harga']*$data['qty'][$i]),
 								"url_bukti"=>$trx['bukti'],
+								"kategori"=>"bubuk",
 								"jenis_pembayaran"=>$trx['jenis_pembayaran']
 							);				
 				/* untuk id_referensi = id_group/id_table*/
@@ -140,6 +141,7 @@ class Meja extends CI_Controller {
 								"keterangan"	=>"[".$trx['jenis_pembayaran']."] - kpd : ".$data['nama']." - ". $trx['keterangan'],
 								"jumlah"		=>($trx['harga']*$data['qty'][$i]),
 								"url_bukti"		=>$trx['bukti'],
+								"kategori"=>"bubuk",
 								"jenis_pembayaran"=>$trx['jenis_pembayaran']
 							);				
 				/* untuk id_referensi = id_group/id_table*/
@@ -300,29 +302,27 @@ class Meja extends CI_Controller {
 		
 
 		
-		$data['id_group']	=8;
-		$data['keterangan'] = "Pemayaran [".$serialize['jenis_pembayaran']."] id meja ".$serialize['id_meja']." pada tgl ".date('Y-m-d H:i:s');
-		$data['jumlah'] 	= $serialize['total'];
-		$data['id_referensi'] = $serialize['id_meja'];
-		$data['jenis_pembayaran'] = $serialize['jenis_pembayaran'];
-		$this->db->set($data);
-		$this->db->insert('tbl_transaksi');
-
+		
 		
 
 		$group_trx = $serialize['group_trx'];
+		$serialize['harga_ekspedisi'] = hanya_nomor($serialize['harga_ekspedisi']);
 		if($this->m_meja->update_status($serialize))
 		{
 
 			$q = $this->db->query("
-				SELECT id_barang,tgl_trx,group_trx,harga_pokok,url_bukti,jenis_pembayaran, SUM(qty) as qty
+				SELECT id_barang,tgl_trx,group_trx,harga_pokok,url_bukti,jenis_pembayaran, SUM(qty) as qty,jenis
 					FROM `trx_meja` 
 					WHERE group_trx='$group_trx'
 					GROUP BY id_meja,id_barang,group_trx
 
 			 ");
-		
+			
+
 			foreach ($q->result() as $key) {
+				$kategori = $key->jenis;
+				$jumlah_bubuk =0;
+				$jumlah_cafe =0;
 				$this->db->query("INSERT INTO kopi_trx 
 										SET 
 										id_barang='$key->id_barang',
@@ -331,10 +331,46 @@ class Meja extends CI_Controller {
 										qty='$key->qty',
 										kode_trx='$key->group_trx',
 										bukti='$key->url_bukti',
-										jenis_pembayaran='$key->jenis_pembayaran',
+										jenis_pembayaran='$key->jenis_pembayaran',					
+										jenis='$kategori',				
 										keterangan='Kasir Cafe'
 
 								");
+
+				if($kategori=='bubuk')				
+				{
+					
+					$jumlah_bubuk+=$key->harga_pokok; 					
+					$data['id_group']	=8;
+					$data['keterangan'] = "Pemayaran [".$serialize['jenis_pembayaran']."] id meja ".$serialize['id_meja']." pada tgl ".date('Y-m-d H:i:s')." - Jumlah = ".$serialize['total']." + Ongkir = ".$serialize['harga_ekspedisi']." | Bubuk = ".rupiah($jumlah_bubuk);
+					
+					$data['id_referensi'] = $serialize['id_meja'];
+					$data['jenis_pembayaran'] = $serialize['jenis_pembayaran'];
+					$data['harga_ekspedisi'] = hanya_nomor($serialize['harga_ekspedisi']);
+					$data['jumlah'] 	= $key->harga_pokok;
+					$data['kategori']=$kategori;
+					$this->db->set($data);
+					$this->db->insert('tbl_transaksi');
+
+				}
+
+
+				if($kategori=='cafe')				
+				{
+					
+					$jumlah_cafe+=$key->harga_pokok; 					
+					$data['id_group']	=8;
+					$data['keterangan'] = "Pemayaran [".$serialize['jenis_pembayaran']."] id meja ".$serialize['id_meja']." pada tgl ".date('Y-m-d H:i:s')." - Jumlah = ".$serialize['total']." + Ongkir = ".$serialize['harga_ekspedisi']." | Cafe = ".rupiah($jumlah_cafe);
+					
+					$data['id_referensi'] = $serialize['id_meja'];
+					$data['jenis_pembayaran'] = $serialize['jenis_pembayaran'];
+					$data['harga_ekspedisi'] = hanya_nomor($serialize['harga_ekspedisi']);
+					$data['jumlah'] 	= $key->harga_pokok;
+					$data['kategori']=$kategori;
+					$this->db->set($data);
+					$this->db->insert('tbl_transaksi');
+
+				}
 			}	
 		}
 		

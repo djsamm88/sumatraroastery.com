@@ -99,9 +99,9 @@
             <select class="form-control" required="required" name="jenis_pembayaran">
               <option value="">--- pilih pembayaran ---</option>
               <option value="cash">Cash</option>
-              <option value="transfer_bank">Transfer</option>
-              <option value="grab">Grab</option>
-              <option value="ovo">ovo</option>
+              <option value="transfer_bank">Transfer BNI</option>
+              <option value="edc">EDC BNI</option>
+              <option value="ovo">OVO</option>
               
             </select>
           </div>

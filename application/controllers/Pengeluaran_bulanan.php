@@ -69,6 +69,10 @@ class Pengeluaran_bulanan extends CI_Controller {
 		$data['jumlah'] = hanya_nomor($data['jumlah']);
 		$data['bukti_pembayaran'] 	= upload_file('bukti_pembayaran');
 
+		$ex = explode("|", $data['nama_pengeluaran']);
+		
+		$data['jenis'] = $ex[1];
+
 		$this->db->set($data);
 		$this->db->insert('tbl_pengeluaran_bulanan_transaksi');
 		$id_trx = $this->db->insert_id();
@@ -79,7 +83,8 @@ class Pengeluaran_bulanan extends CI_Controller {
 			$ser_trx = array(
 							"id_group"=>"4",							
 							"keterangan"=>$ket,
-							"jumlah"=>($data['jumlah'])
+							"jumlah"=>($data['jumlah']),
+							"kategori"=>$data['jenis']
 						);				
 			/* untuk id_referensi = id_group/id_table*/
 			$ser_trx['id_referensi'] = $id_trx;	

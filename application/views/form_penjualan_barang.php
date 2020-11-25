@@ -54,7 +54,7 @@
 
                     <div class='col-sm-4'>
                       <div class='alert $alert text-center' style='min-height:230px;margin:5px'>
-                        <b>$meja->nama_meja [$meja->id_meja]</b>
+                        <b>$meja->nama_meja </b>
                           
                           <br>
                            $tambah 

@@ -195,6 +195,7 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 								    a.nama AS group_trx,
 								    a.keterangan,
 								    a.jenis_pembayaran,
+								    a.kategori,
 									a.debet,
 									a.kredit
 									FROM

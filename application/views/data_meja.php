@@ -48,6 +48,10 @@
                  <button class='btn btn-danger btn-xs' onclick='hapus_admin($x->id_meja);return false;'>Hapus</button>
                  -->
                  ";
+          if($x->id_meja==6 || $x->id_meja==7)
+          {
+            $btn="";
+          }
 
           $no++;
 
