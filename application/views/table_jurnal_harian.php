@@ -141,6 +141,9 @@
               <tr>
               <td>Transfer</td><td align="right">Rp.<?php echo rupiah($transfer_bank)?></td>
             </tr>
+            <tr>
+              <td><b>Total</b></td><td align="right"><b>Rp.<?php echo rupiah($transfer_bank+$cash+$ovo+$grab)?></b></td>
+            </tr>
          </table>
 
 
@@ -246,6 +249,9 @@
               <tr>
               <td>Transfer</td><td align="right">Rp.<?php echo rupiah($transfer_bank)?></td>
             </tr>
+            <tr>
+              <td><b>Total</b></td><td align="right"><b>Rp.<?php echo rupiah($transfer_bank+$cash+$ovo+$grab)?></b></td>
+            </tr>
          </table>
 
 
@@ -253,7 +259,7 @@
 <!--------batas --------->
 
 
-
+<!--
 <br><br>
 <br><br>
 
@@ -352,7 +358,7 @@
             </tr>
          </table>
 
-
+-->
 
          
 

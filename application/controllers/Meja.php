@@ -311,10 +311,12 @@ class Meja extends CI_Controller {
 		{
 
 			$q = $this->db->query("
-				SELECT id_barang,tgl_trx,group_trx,harga_pokok,url_bukti,jenis_pembayaran, SUM(qty) as qty,jenis
-					FROM `trx_meja` 
-					WHERE group_trx='$group_trx'
-					GROUP BY id_meja,id_barang,group_trx
+				SELECT a.id_barang,a.tgl_trx,a.group_trx,a.harga_pokok,a.url_bukti,a.jenis_pembayaran, SUM(a.qty) as qty,a.jenis,
+				b.nama_barang
+					FROM `trx_meja` a
+					LEFT JOIN tbl_barang b ON a.id_barang=b.id
+					WHERE a.group_trx='$group_trx'
+					GROUP BY a.id_meja,a.id_barang,a.group_trx
 
 			 ");
 			
@@ -342,7 +344,7 @@ class Meja extends CI_Controller {
 					
 					$jumlah_bubuk+=$key->harga_pokok; 					
 					$data['id_group']	=8;
-					$data['keterangan'] = "Pemayaran [".$serialize['jenis_pembayaran']."] id meja ".$serialize['id_meja']." pada tgl ".date('Y-m-d H:i:s')." - Jumlah = ".$serialize['total']." + Ongkir = ".$serialize['harga_ekspedisi']." | Bubuk = ".rupiah($jumlah_bubuk);
+					$data['keterangan'] = "Pemayaran [".$serialize['jenis_pembayaran']."] id meja ".$serialize['id_meja']." - $key->nama_barang ";
 					
 					$data['id_referensi'] = $serialize['id_meja'];
 					$data['jenis_pembayaran'] = $serialize['jenis_pembayaran'];
@@ -360,7 +362,7 @@ class Meja extends CI_Controller {
 					
 					$jumlah_cafe+=$key->harga_pokok; 					
 					$data['id_group']	=8;
-					$data['keterangan'] = "Pemayaran [".$serialize['jenis_pembayaran']."] id meja ".$serialize['id_meja']." pada tgl ".date('Y-m-d H:i:s')." - Jumlah = ".$serialize['total']." + Ongkir = ".$serialize['harga_ekspedisi']." | Cafe = ".rupiah($jumlah_cafe);
+					$data['keterangan'] = "Pemayaran [".$serialize['jenis_pembayaran']."] id meja ".$serialize['id_meja']."- $key->nama_barang ";
 					
 					$data['id_referensi'] = $serialize['id_meja'];
 					$data['jenis_pembayaran'] = $serialize['jenis_pembayaran'];
