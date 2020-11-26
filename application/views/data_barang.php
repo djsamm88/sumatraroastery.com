@@ -29,9 +29,9 @@
         <div class="box-body">
               <?php 
               if($this->session->userdata('level')=='1')//hanya admin
-              {?>
+              { ?>
               <button class="btn btn-primary" id="tambah_data"  onclick="tambah()">Tambah Data</button> 
-              <?php }?>
+              <?php } ?>
 <div class="table-responisve">
 <table id="tbl_datanya" class="table  table-striped table-bordered"  cellspacing="0" width="100%">
       <thead>
