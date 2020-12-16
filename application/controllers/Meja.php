@@ -47,6 +47,8 @@ class Meja extends CI_Controller {
 		$trx['bukti'] 		= upload_file('bukti_pembayaran');
 		$trx['kode_trx']	= date('ymdhis')."_".$this->session->userdata('id_admin');
 		$trx['jenis_pembayaran'] = $data['jenis_pembayaran'];
+		
+
 		for ($i=0; $i <count($data['id_barang']) ; $i++) { 
 			if(hanya_nomor($data['qty'][$i])>0)
 			{
@@ -58,6 +60,7 @@ class Meja extends CI_Controller {
 				$trx['hp']  	= $data['hp'];
 				$trx['keterangan']  = "Kasir Agen -  ".$data['keterangan']." - ".date('Y-m-d H:i:s');				
 				$trx['kategori_trx']='keluar';
+				$trx['diskon'] = hanya_nomor($data['diskon']);
 
 				$this->db->set($trx);
 				$this->db->insert('kopi_trx');
@@ -100,6 +103,23 @@ class Meja extends CI_Controller {
 
 		echo $trx['kode_trx'];
 
+
+		
+		/* diskon */
+		$ser_disk['diskon'] = hanya_nomor($data['diskon']);
+		$ser_disk = array(
+									"id_group"=>"9",							
+									"keterangan"=>"Diskon Kpd: ".$data['nama']."-".$data['hp']." - Trx:".$trx['kode_trx'],
+									"jumlah" =>$ser_disk['diskon'],
+									"kategori"=>"bubuk",
+									"jenis_pembayaran"=>$trx['jenis_pembayaran']
+								);		
+		$ser_disk['id_referensi'] =  $trx['kode_trx'];	
+
+		$this->db->set($ser_disk);
+		$this->db->insert('tbl_transaksi');
+		/* diskon */
+
 		
 
 
@@ -129,6 +149,7 @@ class Meja extends CI_Controller {
 				$trx['hp']  	= $data['hp'];
 				$trx['keterangan']  = "Kasir Member -  ".$data['keterangan']." - ".date('Y-m-d H:i:s');			
 				$trx['kategori_trx']='keluar';
+				$trx['diskon'] = hanya_nomor($data['diskon']);
 
 				$this->db->set($trx);
 				$this->db->insert('kopi_trx');
@@ -158,6 +179,21 @@ class Meja extends CI_Controller {
 		echo $trx['kode_trx'];
 
 		
+
+		/* diskon */
+		$ser_disk['diskon'] = hanya_nomor($data['diskon']);
+		$ser_disk = array(
+									"id_group"=>"9",							
+									"keterangan"=>"Diskon Kpd: ".$data['nama']."-".$data['hp']." - Trx:".$trx['kode_trx'],
+									"jumlah" =>$ser_disk['diskon'],
+									"kategori"=>"bubuk",
+									"jenis_pembayaran"=>$trx['jenis_pembayaran']
+								);		
+		$ser_disk['id_referensi'] =  $trx['kode_trx'];	
+
+		$this->db->set($ser_disk);
+		$this->db->insert('tbl_transaksi');
+		/* diskon */
 
 
 		die("");
@@ -307,6 +343,7 @@ class Meja extends CI_Controller {
 
 		$group_trx = $serialize['group_trx'];
 		$serialize['harga_ekspedisi'] = hanya_nomor($serialize['harga_ekspedisi']);
+		$serialize['diskon'] = hanya_nomor($serialize['diskon']);
 		if($this->m_meja->update_status($serialize))
 		{
 

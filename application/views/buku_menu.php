@@ -92,8 +92,33 @@ if($id==6){
 
 <?php
 }else{
+?>
+
+
+<div style='clear:both'></div><br>
+<br>
+<b>Menu Cafe: </b><br>
+<table class="table table-bordered table-striped" id="dataMenu">
+  <thead>
+    <tr>
+        <th>No</th>
+        <th>Barang</th>
+        <th>Harga</th>
+        <th>Berat (gram)</th>
+        <th>Qty</th>
+        <th>Order</th>
+        <th>Action</th>
+
+        
+    </tr>
+  </thead>
+<tbody>
+
+<?php
+    $no=0;
 foreach ($menu_menu as $menu) {
-    
+    $no++;
+    /*
                   echo "
 
                     <div class='col-sm-3'>
@@ -121,11 +146,65 @@ foreach ($menu_menu as $menu) {
                     </div>
 
                   ";
-  }
-
-
-  foreach ($menu_titipan as $titipan) {
+                  
+                  */
+                  
+                  
+          
+    echo "
+      <tr>
+        <td width='10px'>$no</td>
+        <td class='warning'>$menu->nama_barang</td>
+        <td class='success text-right'>".rupiah($menu->harga_pokok)."</td>
+        <td class='info text-right' width='200px'>$menu->berat</td>
+        <td class='danger' width='100px'>
+          <input type='number' name='qty' class='form-control' placeholder='Jumlah' value='1' id='qty'>
+          <input type='hidden'  value='$menu->id' id='id'>
+          <input type='hidden' value='$menu->harga_pokok' id='harga_pokok'>
+          <input type='hidden'  value='$menu->berat' id='berat'>
+          
+          
+        </td>
+        <td class='danger' width='100px' id='jum_order'>
+        
+        </td>
+        <td class='' width='100px'>
+          <button  class='btn btn-success btn-block ' id='order_menu' onclick='order($(this))'>Order</button>
+        </td>
+      </tr>
+    ";
     
+  }
+  
+  ?>
+
+</tbody>
+</table>
+
+
+<div style='clear:both'></div><br>
+<br>
+<b>Menu Cafe Tambahan: </b><br>
+<table class="table table-bordered table-striped" id="dataTitip">
+  <thead>
+    <tr>
+        <th>No</th>
+        <th>Barang</th>
+        <th>Harga</th>
+        <th>Berat (gram)</th>
+        <th>Qty</th>
+        <th>Order</th>
+        <th>Action</th>
+
+        
+    </tr>
+  </thead>
+<tbody>
+<?php
+$no=0;
+  foreach ($menu_titipan as $titipan) {
+      $no++;
+    /*
                   echo "
 
                     <div class='col-sm-3'>
@@ -153,7 +232,39 @@ foreach ($menu_menu as $menu) {
                     </div>
 
                   ";
+                  
+                  */
+                  
+                  
+    echo "
+      <tr>
+        <td width='10px'>$no</td>
+        <td class='warning'>$titipan->nama_barang</td>
+        <td class='success text-right'>".rupiah($titipan->harga_pokok)."</td>
+        <td class='info text-right' width='200px'>$titipan->berat</td>
+        <td class='danger' width='100px'>
+          <input type='number' name='qty' class='form-control' placeholder='Jumlah' value='1' id='qty'>
+          <input type='hidden'  value='$titipan->id' id='id'>
+          <input type='hidden' value='$titipan->harga_pokok' id='harga_pokok'>
+          <input type='hidden'  value='$titipan->berat' id='berat'>
+          
+          
+        </td>
+        <td class='danger' width='100px' id='jum_order'>
+        
+        </td>
+        <td class='' width='100px'>
+          <button  class='btn btn-success btn-block ' id='order_menu' onclick='order($(this))'>Order</button>
+        </td>
+      </tr>
+    ";
+    
   }?>
+  
+  
+</tbody>
+</table>
+
 
 <div style='clear:both'></div><br>
 <br>
@@ -210,6 +321,7 @@ foreach ($menu_menu as $menu) {
 
 
 <?php
+
    foreach ($menu_roasting as $roasting) {
     
                   echo "
@@ -247,8 +359,11 @@ foreach ($menu_menu as $menu) {
 
 
 <script type="text/javascript">
+
+$('#dataMenu').dataTable();
   function order(ini)
   {
+      /*
     var jum_awal  = parseInt(ini.parent().find("#jum_order").text()) || 0;
     var jum_order = parseInt(ini.parent().find("#qty").val()) || 0;
     var harga_pokok = parseInt(ini.parent().find("#harga_pokok").val()) || 0;
@@ -262,6 +377,24 @@ foreach ($menu_menu as $menu) {
     var id = parseInt(ini.parent().find("#id").val()) || 0;
     var jenis = "cafe";
     var berat = parseInt(ini.parent().find("#berat").val()) || 0;
+    var ser = {qty:jum_order,id_barang:id,id_meja:<?php echo $id?>,harga_pokok:harga_pokok,berat:berat,jenis:jenis};
+    $.post("<?php echo base_url()?>index.php/meja/order",ser,function(){
+
+    })
+    */
+    
+     ini.parent().find("#qty").val('');
+    var jum_order = parseInt(ini.parent().parent().find("td #qty").val()) || 0;
+    var jum_awal  = parseInt(ini.parent().parent().find("#jum_order").text()) || 0;
+    var harga_pokok  = parseInt(ini.parent().parent().find("td #harga_pokok").val()) || 0;
+
+    
+    ini.parent().parent().find("#jum_order").html(jum_awal+jum_order);
+    ini.parent().parent().find("#qty").val('');
+
+    var id = parseInt(ini.parent().parent().find("td #id").val()) || 0;
+    var berat = parseInt(ini.parent().parent().find("td #berat").val()) || 0;
+    var jenis = "cafe";
     var ser = {qty:jum_order,id_barang:id,id_meja:<?php echo $id?>,harga_pokok:harga_pokok,berat:berat,jenis:jenis};
     $.post("<?php echo base_url()?>index.php/meja/order",ser,function(){
 

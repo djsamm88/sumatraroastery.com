@@ -63,7 +63,7 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 
 							SELECT a.*,b.nama_admin,SUM(harga_pokok*qty) AS total FROM 
 							(
-								SELECT id,id_meja,id_admin,tgl_trx,group_trx,harga_pokok, SUM(qty) AS qty, status, url_bukti,harga_ekspedisi FROM `trx_meja` 
+								SELECT id,id_meja,id_admin,tgl_trx,group_trx,harga_pokok, SUM(qty) AS qty, status, url_bukti,harga_ekspedisi,diskon FROM `trx_meja` 
 								WHERE 
 								(tgl_trx BETWEEN '$awal' AND '$akhir') 
 								 AND status=1 
@@ -196,7 +196,7 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 							SELECT a.*,b.nama_barang,b.berat,c.nama_admin 
 							FROM 
 							(
-								SELECT id,id_meja,id_barang,id_admin,tgl_trx,group_trx,harga_pokok, SUM(qty) AS qty, status,harga_ekspedisi FROM `trx_meja` WHERE group_trx='$group_trx' GROUP BY id_barang
+								SELECT id,id_meja,id_barang,id_admin,tgl_trx,group_trx,harga_pokok, SUM(qty) AS qty, status,harga_ekspedisi,diskon FROM `trx_meja` WHERE group_trx='$group_trx' GROUP BY id_barang
 							)a
 							LEFT JOIN tbl_barang b ON a.id_barang=b.id
 							LEFT JOIN tbl_admin c ON a.id_admin=c.id_admin
@@ -287,6 +287,7 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 		$group_trx = $serialize['group_trx'];
 		$url_bukti = $serialize['url_bukti'];
 		$harga_ekspedisi = $serialize['harga_ekspedisi'];
+		$diskon = $serialize['diskon'];
 
 		$this->db->query("UPDATE trx_meja SET 
 							status='1',
@@ -294,6 +295,7 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 							group_trx='$group_trx',
 							jenis_pembayaran='$jenis_pembayaran', 
 							harga_ekspedisi='$harga_ekspedisi',
+							diskon='$diskon',
 							url_bukti='$url_bukti' 
 						WHERE id_meja='$id_meja' AND status=0");
 

@@ -67,14 +67,20 @@ font-size:10px;
 
 	}
 	
+	$diskon = @$data[0]->diskon;
 	
 	echo "
 		<tr>
+			<td colspan=4 align=right>Diskon</td>
+			<td align=right><b>".rupiah($diskon)."</b></td>
+		</tr>				
+	";
+
+	echo "
+		<tr>
 			<td colspan=4 align=right>Total</td>
-			<td align=right><b>".rupiah($tot)."</b></td>
-		</tr>
-		
-		
+			<td align=right><b>".rupiah($tot-$diskon)."</b></td>
+		</tr>				
 	";
 ?>
 </table>
@@ -141,13 +147,20 @@ font-size:10px;
 	}
 	
 	
+	$diskon = @$data[0]->diskon;
+	
+	echo "
+		<tr>
+			<td colspan=4 align=right>Diskon</td>
+			<td align=right><b>".rupiah($diskon)."</b></td>
+		</tr>				
+	";
+
 	echo "
 		<tr>
 			<td colspan=4 align=right>Total</td>
-			<td align=right><b>".rupiah($tot)."</b></td>
-		</tr>
-		
-		
+			<td align=right><b>".rupiah($tot-$diskon)."</b></td>
+		</tr>				
 	";
 ?>
 </table>

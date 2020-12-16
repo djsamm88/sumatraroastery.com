@@ -51,6 +51,8 @@
     
     <input type="text" id="harga_ekspedisi" class="form-control text-right nomor" name="harga_ekspedisi" value="" placeholder="Ekspedisi">
 
+    <input type="text" id="diskon" class="form-control text-right nomor" name="diskon" value="" placeholder="Diskon">
+
     <select class="form-control" required="required" name="jenis_pembayaran">
       <option value="">--- pilih pembayaran ---</option>
       <option value="cash">Cash</option>

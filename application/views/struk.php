@@ -88,10 +88,21 @@ font-size:10px;
 	
 	echo "
 		<tr>
-			<td colspan=4 align=right>Total</td>
-			<td align=right><b>".rupiah($tot+@$data[0]->harga_ekspedisi)."</b></td>
+			<td colspan=4 align=right>Diskon</td>
+			<td align=right>".rupiah(@$data[0]->diskon)."</td>
 		</tr>
-			";
+		
+		
+	";
+	
+	echo "
+		<tr>
+			<td colspan=4 align=right>Total</td>
+			<td align=right><b>".rupiah(($tot+@$data[0]->harga_ekspedisi)-$data[0]->diskon)."</b></td>
+		</tr>
+		
+		
+	";
 ?>
 </table>
 
@@ -175,11 +186,21 @@ font-size:10px;
 		
 		
 	";
+
+
+	echo "
+		<tr>
+			<td colspan=4 align=right>Diskon</td>
+			<td align=right>".rupiah(@$data[0]->diskon)."</td>
+		</tr>
+		
+		
+	";
 	
 	echo "
 		<tr>
 			<td colspan=4 align=right>Total</td>
-			<td align=right><b>".rupiah($tot+@$data[0]->harga_ekspedisi)."</b></td>
+			<td align=right><b>".rupiah(($tot+@$data[0]->harga_ekspedisi)-$data[0]->diskon)."</b></td>
 		</tr>
 		
 		

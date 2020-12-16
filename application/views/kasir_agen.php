@@ -94,6 +94,14 @@
 </tfoot>
 </table>
           
+
+            <div class="col-sm-4" style="text-align:right">Diskon</div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control nomor" name="diskon" id="diskon">
+            </div> 
+            <div style="clear:both"></div><br>
+
+
           <div class="col-sm-4" style="text-align:right"> Pembayaran</div>
             <div class="col-sm-8">
             <select class="form-control" required="required" name="jenis_pembayaran">
@@ -105,6 +113,7 @@
           </div>
           <br>
           <br>
+
 
 
 
