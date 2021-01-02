@@ -39,7 +39,7 @@ if($id==6){
 <div style='clear:both'></div><br>
 <br>
 <b>Oleh-oleh Kopi Medan: </b><br>
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" id="menu_Oleh">
   <thead>
     <tr>
         <th>No</th>
@@ -269,7 +269,7 @@ $no=0;
 <div style='clear:both'></div><br>
 <br>
 <b>Oleh-oleh Kopi Medan: </b><br>
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" id="menu_Oleh">
   <thead>
     <tr>
         <th>No</th>
@@ -361,6 +361,8 @@ $no=0;
 <script type="text/javascript">
 
 $('#dataMenu').dataTable();
+$('#dataTitip').dataTable();
+$('#menu_Oleh').dataTable();
   function order(ini)
   {
       /*

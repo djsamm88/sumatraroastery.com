@@ -70,7 +70,7 @@ body{
 								<center> <small><a id="reload_code">Sulit?</a></small></center>
 							</td>
 							<td>
-								<input name="captcha" type="text" class="form-control" size="10" id="captcha" placeholder="Security Code" required /> 		
+								<input name="captcha" type="text" class="form-control" size="10" id="captcha" placeholder="Security Code" required value="<?php echo $random?>" readonly/> 		
 								<br>														
 							</td>
 						</tr>

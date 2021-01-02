@@ -18,6 +18,12 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 		return $q->result();
 	}
 
+	public function nama_meja($id_meja)
+	{
+		$q = $this->db->query("SELECT nama_meja FROM tbl_meja WHERE id_meja='$id_meja'");		
+		return $q->result()[0];
+	}
+
 
 	public function m_data_aktif()
 	{

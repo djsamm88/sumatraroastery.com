@@ -138,6 +138,7 @@ class Laporan_keuangan extends CI_Controller {
 
 
 
+
 	public function laporan_jurnal_harian_xl()
 	{
 		$tgl_awal = $this->input->get('tgl_awal');

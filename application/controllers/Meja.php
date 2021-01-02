@@ -339,7 +339,7 @@ class Meja extends CI_Controller {
 
 		
 		
-		
+	
 
 		$group_trx = $serialize['group_trx'];
 		$serialize['harga_ekspedisi'] = hanya_nomor($serialize['harga_ekspedisi']);
@@ -356,6 +356,15 @@ class Meja extends CI_Controller {
 					GROUP BY a.id_meja,a.id_barang,a.group_trx
 
 			 ");
+
+
+			/******** diskon *******/
+			$disk['keterangan'] = "Diskon id Meja  ".$serialize['id_meja']." - ".rupiah($serialize['diskon']);		$disk['id_group']	=9;
+					$disk['id_referensi'] = $serialize['id_meja'];					
+					$disk['jumlah'] 	= $serialize['diskon'];					
+					$this->db->set($disk);
+					$this->db->insert('tbl_transaksi');
+			/********** diskon ********/
 			
 
 			foreach ($q->result() as $key) {

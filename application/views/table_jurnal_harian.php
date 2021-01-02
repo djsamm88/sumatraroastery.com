@@ -70,8 +70,10 @@
              $grab = 0;
 
               foreach ($all as $key) {
-                if($key->kategori=='bubuk')
+
+                if(trim($key->kategori)=='bubuk')
                 {
+
 
                   $no++;
                   $total+=$key->saldo;
@@ -97,6 +99,7 @@
                   {
                     $grab+=$key->debet;
                   }
+
 
                   echo "
                     <tr>
@@ -178,7 +181,7 @@
              $grab = 0;
 
               foreach ($all as $key) {
-                if($key->kategori=='cafe')
+                if(trim($key->kategori)=='cafe')
                 {
 
                   $no++;
@@ -235,6 +238,10 @@
            </tfoot>
          </table>
 
+
+
+
+
          <h3>Menurut Jenis Pembayaran - Sumatera Cafe</h3>
          <table class="table table-bordered">
             <tr>
@@ -252,8 +259,74 @@
             <tr>
               <td><b>Total</b></td><td align="right"><b>Rp.<?php echo rupiah($transfer_bank+$cash+$ovo+$grab)?></b></td>
             </tr>
+            
          </table>
 
+
+
+
+<!--------batas --------->
+<br><br>
+
+<h3>Diskon</h3>
+<table class="table table-bordered" id="tbl_jurnal">
+           <thead>
+             <tr>
+                <th>No.</th>
+                <th>Id.Trx</th>
+                <th>Tanggal</th>
+                <th>Group Trx</th>
+                <th>Keterangan</th>                
+                
+                <th>Kredit</th>
+                
+             </tr>
+           </thead>
+           <tbody>
+             <?php 
+             $no=0;         
+             $diskon=0;    
+             $total=0;    
+             $tot_debet=0;
+             $tot_kredit=0;
+             
+              foreach ($all as $key) {
+                if(trim($key->id_group)=='9')
+                {
+
+                  $no++;
+                  $total+=$key->saldo;
+                  $tot_debet+=$key->debet;
+                  $tot_kredit+=$key->kredit;
+
+                  $diskon=$tot_kredit;
+                  echo "
+                    <tr>
+                      <td>$no</td>
+                      <td>$key->id</td>
+                      <td>".tglindo($key->tanggal)."</td>
+                      <td>$key->group_trx</td>
+                      <td>$key->keterangan </td>                      
+                      
+                      <td style='text-align:right'>".rupiah($key->kredit)."</td>
+                      
+                    </tr>
+                  ";
+
+                  }
+                }
+             ?>
+             
+           </tbody>
+           <tfoot>
+             <tr>
+                <th colspan='5' style='text-align:right'><b>Total</b></th>
+
+                <th style='text-align:right'><b>Rp.<?php echo rupiah($tot_kredit)?></b></th>
+
+             </tr>
+           </tfoot>
+         </table>
 
 
 <!--------batas --------->

@@ -197,7 +197,8 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 								    a.jenis_pembayaran,
 								    a.kategori,
 									a.debet,
-									a.kredit
+									a.kredit,
+									a.id_group
 									FROM
 									(
 										SELECT a.*,

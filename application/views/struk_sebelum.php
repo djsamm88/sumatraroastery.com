@@ -39,7 +39,7 @@ font-size:10px;
 
 <tr>
 	<td>Id Meja</td>
-	<td>: <?php echo $data[0]->id_meja?></td>	
+	<td>: <?php echo $this->m_meja->nama_meja($data[0]->id_meja)->nama_meja?></td>	
 </tr>
 
 </table>
