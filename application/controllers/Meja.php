@@ -359,7 +359,7 @@ class Meja extends CI_Controller {
 
 
 			/******** diskon *******/
-			$disk['keterangan'] = "Diskon id Meja  ".$serialize['id_meja']." - ".rupiah($serialize['diskon']);		$disk['id_group']	=9;
+			$disk['keterangan'] = "Diskon id Meja  ".$serialize['id_meja']." - ".rupiah($serialize['diskon']*1);		$disk['id_group']	=9;
 					$disk['id_referensi'] = $serialize['id_meja'];					
 					$disk['jumlah'] 	= $serialize['diskon'];					
 					$this->db->set($disk);
