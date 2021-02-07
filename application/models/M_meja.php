@@ -293,7 +293,7 @@ if (!defined('BASEPATH'))exit('No direct script access allowed');
 		$group_trx = $serialize['group_trx'];
 		$url_bukti = $serialize['url_bukti'];
 		$harga_ekspedisi = $serialize['harga_ekspedisi'];
-		$diskon = $serialize['diskon'];
+		$diskon = $serialize['diskon_cafe']+$serialize['diskon_bubuk'];
 
 		$this->db->query("UPDATE trx_meja SET 
 							status='1',

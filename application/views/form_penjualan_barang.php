@@ -39,6 +39,8 @@
                   $pindah = "<button class='btn btn-primary btn-block' onclick='pindah_meja($meja->id_meja)'> Pindah</button>";
 
                   $cetak = "<button class='btn btn-primary btn-block' onclick='cetak($meja->id_meja)'> Cetak</button>";
+
+                  $cetak = "<button class='btn btn-warning btn-block' onclick='batal($meja->id_meja)'> Batal</button>";
                   }else{
                     $alert='alert-info';
                     $tutup = "";
@@ -121,6 +123,16 @@
 
 
 <script type="text/javascript">
+
+  function batal(id_meja)
+  {
+    if(confirm("Anda yakin membatalkan meja?"))
+    {
+      $.get("<?php echo base_url()?>index.php/meja/batal_meja/"+id_meja,function(e){
+        eksekusi_controller('<?php echo base_url()?>index.php/meja/form_penjualan',' Kasir');
+      })
+    }
+  }
 
   function cetak(id_meja)
   {

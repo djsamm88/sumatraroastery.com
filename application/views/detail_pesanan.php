@@ -36,7 +36,7 @@
 
   <tr>
     <td colspan="5" align="right"><b>Total</b></td>
-    <td align="right"><b><?php echo rupiah($total)?></b></td>
+    <td align="right"><b id="total_atas"><?php echo rupiah($total)?></b></td>
   </tr>
 
 </tbody>
@@ -45,13 +45,32 @@
 <div class="col-sm-6"></div>
 <div class="col-sm-6">
 <div class="text-right">
-  <form id="form_pembayaran" enctype="multipart/form-data">
+  <form id="form_pembayaran" enctype="multipart/form-data" form autocomplete="off">
     <input type="hidden" id="total" class="form-control text-right" name="total" value="<?php echo ($total)?>">
     <input type="hidden" name="id_meja" value="<?php echo $id?>">
     
     <input type="text" id="harga_ekspedisi" class="form-control text-right nomor" name="harga_ekspedisi" value="" placeholder="Ekspedisi">
 
-    <input type="text" id="diskon" class="form-control text-right nomor" name="diskon" value="" placeholder="Diskon">
+    <input type="text" id="diskon_bubuk" class="form-control text-right nomor" name="diskon_bubuk" value="" placeholder="Diskon Bubuk">
+
+
+    <input type="text" id="diskon_cafe" class="form-control text-right nomor" name="diskon_cafe" value="" placeholder="Diskon Cafe">
+
+
+
+
+    <br>
+
+    <input type="text" id="total_all" class="form-control text-right" value="<?php echo rupiah($total)?>" placeholder="Total" readonly="">
+
+    <br>
+    <input type="text" id="bayar" class="form-control text-right nomor" placeholder="Bayar" >
+    <br>
+    <input type="text" id="kembali" class="form-control text-right " placeholder="Kembali" readonly="">
+
+    <br>
+
+
 
     <select class="form-control" required="required" name="jenis_pembayaran">
       <option value="">--- pilih pembayaran ---</option>
@@ -62,12 +81,67 @@
       
     </select>
     <input type="file" class="form-control" name="bukti_pembayaran" id="bukti_pembayaran">
-    <button type="submit" class="btn btn-success" id="btn_bayar">Bayar</button>
+
+    <br>
+    <button type="submit" class="btn btn-success" id="btn_bayar">Bayar</button> 
     <div id="info"></div>
   </form>
 </div>
 </div>
 <script type="text/javascript">
+
+
+$("#diskon_cafe,#harga_ekspedisi,#diskon_bubuk").on("keydown keyup mousedown mouseup select contextmenu drop",function(){
+   total();
+   kembalian();
+})
+
+$("#bayar").on("keydown keyup mousedown mouseup select contextmenu drop",function(){
+   kembalian();
+})
+
+
+function kembalian()
+{
+  var total_all = parseInt(buang_titik($("#total_all").val()))||0;
+  var bayar = parseInt(buang_titik($("#bayar").val()))||0;
+  var kemb = bayar - total_all;
+  $("#kembali").val(formatRupiah(kemb));
+  console.log(kemb)
+
+}
+
+function total()
+{   
+    var total = 0;
+    var tot = parseInt(buang_titik($("#total_atas").text()))||0;
+    var harga_ekspedisi = parseInt(buang_titik($("#harga_ekspedisi").val()))||0;
+    var diskon_cafe = parseInt(buang_titik($("#diskon_cafe").val()))||0;
+    var diskon_bubuk = parseInt(buang_titik($("#diskon_bubuk").val()))||0;
+    var diskon = (diskon_bubuk + diskon_cafe);
+     total += tot;
+     total += harga_ekspedisi;
+     total -= diskon;
+    $("#total_all").val(formatRupiah(total));
+    console.log(total);
+
+}
+
+
+function buang_titik(mystring)
+{
+  try{
+    return mystring.replace(/\./g,'');
+  }catch{
+    return 0;
+  }
+  
+}
+
+function formatRupiah(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 hanya_nomor(".nomor");
 $("#form_pembayaran").on("submit",function(){
    if(confirm("Aksi ini akan mempengaruhi KAS. Anda yakin?"))

@@ -348,7 +348,7 @@ Jasa Roasting:
         </div>
 
  <?php
-    if ($this->session->userdata('level') == '1') {
+    if ($this->session->userdata('level') == '1' || $this->session->userdata('level') == '3') {
 
     ?>
         <input type="button" class="btn btn-primary" value="Download" id="download_pdf">

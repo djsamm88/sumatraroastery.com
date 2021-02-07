@@ -64,24 +64,29 @@ td {
                   $tot_debet+=$key->debet;
                   $tot_kredit+=$key->kredit;
 
+                 
                   if($key->jenis_pembayaran=='cash')
                   {
                     $cash+=$key->debet;
+                    $cash-=$key->kredit;
                   }
 
                   if($key->jenis_pembayaran=='ovo')
                   {
                     $ovo+=$key->debet;
+                    $ovo-=$key->kredit;
                   }
 
                   if($key->jenis_pembayaran=='transfer_bank')
                   {
                     $transfer_bank+=$key->debet;
+                    $transfer_bank-=$key->kredit;
                   }
 
                   if($key->jenis_pembayaran=='edc')
                   {
                     $grab+=$key->debet;
+                    $grab-=$key->kredit;
                   }
 
 
@@ -173,24 +178,29 @@ td {
                   $tot_debet+=$key->debet;
                   $tot_kredit+=$key->kredit;
 
+                  
                   if($key->jenis_pembayaran=='cash')
                   {
                     $cash+=$key->debet;
+                    $cash-=$key->kredit;
                   }
 
                   if($key->jenis_pembayaran=='ovo')
                   {
                     $ovo+=$key->debet;
+                    $ovo-=$key->kredit;
                   }
 
                   if($key->jenis_pembayaran=='transfer_bank')
                   {
                     $transfer_bank+=$key->debet;
+                    $transfer_bank-=$key->kredit;
                   }
 
                   if($key->jenis_pembayaran=='edc')
                   {
                     $grab+=$key->debet;
+                    $grab-=$key->kredit;
                   }
 
                   echo "

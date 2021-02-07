@@ -30,6 +30,11 @@ class Meja extends CI_Controller {
 	}
 
 
+	public function batal_meja($id_meja)
+	{
+		$this->db->query("DELETE FROM trx_meja WHERE id_meja=$id_meja");
+	}
+
 
 	public function kasir_member()
 	{
@@ -343,7 +348,9 @@ class Meja extends CI_Controller {
 
 		$group_trx = $serialize['group_trx'];
 		$serialize['harga_ekspedisi'] = hanya_nomor($serialize['harga_ekspedisi']);
-		$serialize['diskon'] = hanya_nomor($serialize['diskon']);
+		$serialize['diskon_cafe'] = hanya_nomor($serialize['diskon_cafe']);
+		$serialize['diskon_bubuk'] = hanya_nomor($serialize['diskon_bubuk']);
+
 		if($this->m_meja->update_status($serialize))
 		{
 
@@ -359,12 +366,35 @@ class Meja extends CI_Controller {
 
 
 			/******** diskon *******/
-			$disk['keterangan'] = "Diskon id Meja  ".$serialize['id_meja']." - ".rupiah($serialize['diskon']*1);		$disk['id_group']	=9;
+
+			if($serialize['diskon_cafe']>0)
+			{
+					$disk['keterangan'] = "Diskon Cafe id Meja  ".$serialize['id_meja']." - ".rupiah($serialize['diskon_cafe']*1);
+					$disk['id_group']	=9;
 					$disk['id_referensi'] = $serialize['id_meja'];					
-					$disk['jumlah'] 	= $serialize['diskon'];					
+					$disk['jumlah'] 	= $serialize['diskon_cafe'];					
+					$disk['kategori'] = "cafe";
+					$disk['jenis_pembayaran'] = $serialize['jenis_pembayaran'];
 					$this->db->set($disk);
 					$this->db->insert('tbl_transaksi');
+			}
+
+			if($serialize['diskon_bubuk']>0)
+			{
+				$disk['keterangan'] = "Diskon Bubuk id Meja  ".$serialize['id_meja']." - ".rupiah($serialize['diskon_bubuk']*1);
+				$disk['id_group']	=9;
+					$disk['id_referensi'] = $serialize['id_meja'];					
+					$disk['jumlah'] 	= $serialize['diskon_bubuk'];					
+					$disk['kategori'] = "bubuk";
+					$disk['jenis_pembayaran'] = $serialize['jenis_pembayaran'];
+					$this->db->set($disk);
+					$this->db->insert('tbl_transaksi');	
+			}
+			
 			/********** diskon ********/
+
+
+
 			
 
 			foreach ($q->result() as $key) {
