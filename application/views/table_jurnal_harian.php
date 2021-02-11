@@ -11,11 +11,11 @@
     <section class="content container-fluid" >
 
       <!--------------------------
-        | Your Page Content Here |
+        | Your Page Content Here | aku
         -------------------------->    
 <!-- Default box -->
       
-
+   
 <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title" id="judul2">Transaksi Harian</h3>

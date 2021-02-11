@@ -1,3 +1,6 @@
+
+
+
 <link rel="stylesheet" href="<?php echo base_url()?>bower_components/bootstrap/dist/css/bootstrap.min.css">
 <style>
 body{
