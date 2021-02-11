@@ -74,7 +74,7 @@
         <td class='danger' width='100px'>
           <input type='text' name='qty[]' class='form-control nomor' placeholder='Jumlah' required value='0' id='qty'>
           <input type='hidden'  value='$kopi->id' id='id' name='id_barang[]'>
-          <input type='hidden'  value='$kopi->harga_member'  name='harga_agen[]'>
+          <input type='hidden'  value='$kopi->harga_member'  name='harga_member[]'>
           <input type='hidden'  value='$kopi->berat'  name='berat[]'>
           
         </td>
@@ -99,9 +99,16 @@
 
             <div class="col-sm-4" style="text-align:right">Diskon</div>
             <div class="col-sm-8">
-              <input type="text" class="form-control nomor" name="diskon" id="diskon">
-            </div> 
+                <input type="text" id="diskon_bubuk" class="form-control text-right nomor" name="diskon_bubuk" value="" placeholder="Diskon Bubuk">
+
+                </div> 
             <div style="clear:both"></div><br>
+
+
+    
+
+
+
 
             
           

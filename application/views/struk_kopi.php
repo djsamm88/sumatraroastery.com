@@ -37,6 +37,11 @@ font-size:10px;
 	<td>: <?php echo $data[0]->kode_trx?></td>	
 </tr>
 
+<tr>	
+	<td>Nama</td>
+	<td>: <?php echo $data[0]->nama?>/<?php echo $data[0]->hp?></td>	
+</tr>
+
 </table>
 <hr style="border-top: dotted 1px;" />
 <center>Daftar Belanja</center>

@@ -56,7 +56,7 @@
                   echo "
 
                     <div class='col-sm-4'>
-                      <div class='alert $alert text-center' style='min-height:230px;margin:5px'>
+                      <div class='alert $alert text-center' style='min-height:270px;margin:5px'>
                         <b>$meja->nama_meja </b>
                           
                           <br>

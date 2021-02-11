@@ -9,6 +9,7 @@
         <th>Qty</th>
         <th>Harga @</th>        
         <th>Subtotal</th>        
+        <th width="100"></th>        
         
         
     </tr>
@@ -29,6 +30,7 @@
         <td class='danger' width='100px'>$x->qty</td>
         <td class='success text-right'>".rupiah($x->harga_pokok)."</td>
         <td class='success text-right'>".rupiah($x->harga_pokok*$x->qty)."</td>             
+        <td class='success text-right'><button class='btn btn-xs btn-danger' onclick='batal_order($x->id_barang, $(this))'>Batal</button></td>             
       </tr>
     ";
   }
@@ -90,6 +92,18 @@
 </div>
 <script type="text/javascript">
 
+function batal_order(id,ini)
+{
+  if(confirm("Anda yakin menghapus item ini?"))
+  {
+    $("#t4_buku_menu").empty();
+    $.get("<?php echo base_url()?>index.php/meja/batal_order/"+id,function(){
+      $("#myModal").modal('hide');
+    })
+    
+  }
+
+}
 
 $("#diskon_cafe,#harga_ekspedisi,#diskon_bubuk").on("keydown keyup mousedown mouseup select contextmenu drop",function(){
    total();

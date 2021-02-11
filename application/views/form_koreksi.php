@@ -30,7 +30,7 @@
         <div class="box-body">
              
              <div id="div_form">
-             <form id="form_penarikan_kas">            
+             <form id="form_penarikan_kas" autocomplete="off">            
             
 
             <div style="clear: both;"></div><br>
@@ -61,6 +61,22 @@
                   <small><i><b>Nb.</b> Masukkan nilai dengan minus (-) Untuk mengurangi selisih (Kredit).</i></small>
               </div>
               <div style="clear: both;"></div><br>
+
+
+              <input type="hidden" name="jenis_pembayaran" value="cash">
+            
+              <div class="col-sm-3">Kategori</div>
+              <div class="col-sm-9">
+                  <select class="form-control" name="kategori" id="kategori" required="required">
+                    <option value=""> --- Pilih --- </option>
+                    <option value="cafe">Cafe</option>
+                    <option value="bubuk">Bubuk</option>
+                  </select>
+                <small><i>Pilih Kategori.</i></small>
+              </div>
+              <div style="clear: both;"></div><br>
+
+
 
               <div class="col-sm-3">Keterangan</div>
               <div class="col-sm-9">

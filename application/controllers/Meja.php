@@ -35,6 +35,11 @@ class Meja extends CI_Controller {
 		$this->db->query("DELETE FROM trx_meja WHERE id_meja=$id_meja");
 	}
 
+	public function batal_order($id)
+	{
+		$this->db->query("DELETE FROM trx_meja WHERE id_barang=$id AND status='hold'");	
+	}
+
 
 	public function kasir_member()
 	{
@@ -149,12 +154,12 @@ class Meja extends CI_Controller {
 				$trx['berat'] = hanya_nomor($data['berat'][$i]);
 				$trx['qty'] = hanya_nomor($data['qty'][$i]);
 				$trx['id_barang'] = $data['id_barang'][$i];
-				$trx['harga']	= hanya_nomor($data['harga_agen'][$i]);
+				$trx['harga']	= hanya_nomor($data['harga_member'][$i]);
 				$trx['nama']  	= $data['nama'];
 				$trx['hp']  	= $data['hp'];
 				$trx['keterangan']  = "Kasir Member -  ".$data['keterangan']." - ".date('Y-m-d H:i:s');			
 				$trx['kategori_trx']='keluar';
-				$trx['diskon'] = hanya_nomor($data['diskon']);
+				$trx['diskon'] = hanya_nomor($data['diskon_bubuk']);
 
 				$this->db->set($trx);
 				$this->db->insert('kopi_trx');
@@ -186,7 +191,7 @@ class Meja extends CI_Controller {
 		
 
 		/* diskon */
-		$ser_disk['diskon'] = hanya_nomor($data['diskon']);
+		$ser_disk['diskon'] = hanya_nomor($data['diskon_bubuk']);
 		$ser_disk = array(
 									"id_group"=>"9",							
 									"keterangan"=>"Diskon Kpd: ".$data['nama']."-".$data['hp']." - Trx:".$trx['kode_trx'],
