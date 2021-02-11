@@ -113,6 +113,7 @@ font-size:10px;
 </center>
 
 <br>
+<!-- 
 <hr style="border-top: dotted 1px;" />
 
 
@@ -213,7 +214,7 @@ font-size:10px;
 <center>
 	Selamat Belanja!
 </center>
-
+-->
 
 </body>
 

@@ -93,6 +93,8 @@ font-size:10px;
 
 
 <br>
+
+<!--
 <hr style="border-top: dotted 1px;" />
 <br>
 <title><?php echo config_item('app_name')?></title>
@@ -186,6 +188,8 @@ font-size:10px;
 <center>
 	Belum lunas!
 </center>
+
+-->
 </body>
 
 <script type="text/javascript">

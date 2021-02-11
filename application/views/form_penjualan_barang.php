@@ -40,13 +40,14 @@
 
                   $cetak = "<button class='btn btn-primary btn-block' onclick='cetak($meja->id_meja)'> Cetak</button>";
 
-                  $cetak = "<button class='btn btn-warning btn-block' onclick='batal($meja->id_meja)'> Batal</button>";
+                  $batal = "<button class='btn btn-warning btn-block' onclick='batal($meja->id_meja)'> Batal</button>";
                   }else{
                     $alert='alert-info';
                     $tutup = "";
                     $tambah = "<button class='btn btn-primary btn-block' onclick='tambah_menu($meja->id_meja)'> Tambah menu</button>";
                     $pindah = "";
                     $cetak = "";
+                     $batal = "";
                   }
                   
 
@@ -66,6 +67,8 @@
                           $pindah
 
                           $cetak
+                          
+                          $batal
 
                           <div style='clear:both'></div><br>
                       </div>  
